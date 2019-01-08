@@ -16,21 +16,24 @@ node v10
 
 ## 初始化
 
-`chmod +x init.sh`
-`./init.sh`
+`chmod +x init.sh && ./init.sh`
 
 ## 第一次启动
 
 `npm run dll`
 
 ## 开发
-
+vuejs  
 `npm run devVeu`
+
+reactjs  
 `npm run devReact`
 
 ## 部署
-
+vuejs  
 `npm run buildVue`
+
+reactjs  
 `npm run buildReact`
 
 ## 分析
