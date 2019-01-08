@@ -25,11 +25,13 @@ node v10
 
 ## 开发
 
-`npm run dev`
+`npm run devVeu`
+`npm run devReact`
 
 ## 部署
 
-`npm run build`
+`npm run buildVue`
+`npm run buildReact`
 
 ## 分析
 
