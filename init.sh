@@ -28,3 +28,5 @@ npm i -D happypack
 npm i -D clean-webpack-plugin
 npm i -D add-asset-html-webpack-plugin
 npm i -D cache-loader
+npm i -D webpack-merge
+npm i -D uglifyjs-webpack-plugin

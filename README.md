@@ -14,14 +14,26 @@
 
 node v10
 
-初始化
+## 初始化
 
 `chmod +x init.sh`
 `./init.sh`
 
-## 插件
-1. html-webpack-plugin
-2. webpack-bundle-analyzer
+## 第一次启动
+
+`npm run dll`
+
+## 开发
+
+`npm run dev`
+
+## 部署
+
+`npm run build`
+
+## 分析
+
+`npm run analyze`
 
 ## 参考
 

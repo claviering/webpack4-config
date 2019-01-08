@@ -1,15 +1,11 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const smp = new SpeedMeasurePlugin();
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const DashboardPlugin = require('webpack-dashboard/plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const HappyPack = require('happypack');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const createHappyPlugin = (id, loaders) => new HappyPack({
@@ -96,20 +92,9 @@ const module = () => ({
   ]
 })
 const plugins = () => [
+  new webpack.AutomaticPrefetchPlugin(),
   new ProgressBarPlugin(),  // 打包进度
   new webpack.HotModuleReplacementPlugin(),  // 热加载
-  new DashboardPlugin(),  // 打包结果分析 控制台版
-  new BundleAnalyzerPlugin({  // 打包结果分析 网页版
-    analyzerMode: server,
-    analyzerHost: '127.0.0.1',
-    analyzerPort: 8888,
-    openAnalyzer: true
-  }),
-  new HtmlWebpackPlugin({  // 压缩 html
-    template: __dirname + './index.html',
-    title: 'CRM',
-    devMode: true
-  }),
   new WebpackBuildNotifierPlugin({  // 输出打包信息
     title: "My Project Webpack Build",
     logo: path.resolve("./img/favicon.png"),
@@ -186,11 +171,16 @@ const devServer = () => ({
 
 const externals = () => ({
   'vue': 'Vue',
-    'vue-router': 'VueRouter',
-    'vuex': 'vuex',
-    'elemenct-ui': 'ELEMENT',
-    'axios': 'axios',
-    'fastclick': 'FastClick'
+  'vue-router': 'VueRouter',
+  'vuex': 'vuex',
+  'elemenct-ui': 'ELEMENT',
+  'axios': 'axios',
+  'fastclick': 'FastClick',
+  'antd': 'antd',
+  'react-redux': 'react-redux',
+  'redux': 'redux',
+  'moment': 'moment',
+  'lodash': 'lodash',
 })
 
 const optimization = () => ({

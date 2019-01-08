@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --config webpack.base.config.js",
-    "dashboard": "webpack-dashboard -- webpack-dev-server --config webpack.base.config.js",
+    "analyze": "webpack-dashboard -- webpack-dev-server --config webpack.base.config.js",
     "dll": "webpack --mode production --config webpack.dll.config.js"
   },
   "keywords": [],

@@ -1,4 +1,4 @@
-const webpackVueDevConfig = require('./webpack.vue.dev.config');
+const webpackReactDevConfig = require('./webpack.react.dev.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const merge = require('webpack-merge')
@@ -23,4 +23,4 @@ const webpackVueProdConfig = {
   optimization
 }
 
-module.exports = merge(webpackVueDevConfig, webpackVueProdConfig)
+module.exports = merge(webpackReactDevConfig, webpackVueProdConfig)
