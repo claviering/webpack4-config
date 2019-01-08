@@ -1,0 +1,15 @@
+{
+  "name": "webpack4",
+  "version": "1.0.0",
+  "description": "配置 demo",
+  "main": "webpack.base.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --config webpack.base.config.js",
+    "dashboard": "webpack-dashboard -- webpack-dev-server --config webpack.base.config.js",
+    "dll": "webpack --mode production --config webpack.dll.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
