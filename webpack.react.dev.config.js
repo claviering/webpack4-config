@@ -9,7 +9,6 @@ const merge = require('webpack-merge')
 const manifestReact = __dirname + '/src/assets/dll' + '/react-manifest.json'  // dll 打包文件名
 const htmlTemplete = __dirname + '/react_src/index.html'
 
-
 const plugins = [
   new webpack.DllReferencePlugin({  // dll 打包
     manifest: require(manifestReact)
