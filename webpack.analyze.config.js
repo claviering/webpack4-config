@@ -1,6 +1,8 @@
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpackBaseConfig = require('./webpack.base.config');
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const smp = new SpeedMeasurePlugin();
 const merge = require('webpack-merge')
 
 const plugins = [
@@ -17,4 +19,5 @@ const webpackAnalyzeConfig = {
   plugins
 }
 
-module.exports = merge(webpackBaseConfig, webpackAnalyzeConfig)
+module.exports = smp.wrap(merge(webpackBaseConfig, webpackAnalyzeConfig))
+

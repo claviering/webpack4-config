@@ -1,32 +1,17 @@
 const os = require('os');
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
-const smp = new SpeedMeasurePlugin();
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 // config
-const entryIndex = __dirname + './react_src/index.js'
-const htmlTemplete = __dirname + './react_src/index.html'
-const contentBase = __dirname + './react_src'
-const manifestVue = __dirname + '/src/assets/dll' + '/vue-manifest.json'  // dll 打包文件名
-const manifestUtils = __dirname + '/src/assets/dll' + '/utils-manifest.json'  // dll 打包文件名
-const manifestReact = __dirname + '/src/assets/dll' + '/react-manifest.json'  // dll 打包文件名
-
-const createHappyPlugin = (id, loaders) => new HappyPack({
-    id: id,
-    loaders: loaders,
-    threadPool: happyThreadPool,
-    verbose: process.env.HAPPY_VERBOSE === '1'
-});
+const entryIndex = __dirname + '/react_src/index.js'
+const contentBase = __dirname + '/react_src'  // 项目源代码目录
 
 const output = {
   path:  __dirname + '/dist',
@@ -36,81 +21,86 @@ const output = {
 
 const resolve = {
   extensions: ['.js', '.jsx', '.vue', '.less'],
-  modules: [__dirname + '/node_modules'],
+  modules: [path.resolve(__dirname, 'node_modules')],
   mainFields: ['index'],
   alias: {
     antdcss: 'antd/dist/antd.min.css',
     vue$: 'vue/dist/vue.common',
-    '@': __dirname + '/src'
+    '@': contentBase
   },
 }
+
 const webpackModule = {
   noParse: /jquery|lodash/,
   rules: [
     {
-      test: /\.(js|jsx)$/,
-      include: __dirname + '/src',
-      exclude: /node_modules/,
-      use: {
-        loader: ['cache-loader', 'babel-loader?cacheDirectory=true'],
-        options: {
-          presets: ['@babel/preset-env'],
-          plugins: ['@babel/plugin-transform-runtime']
+      test: /\.js[x]?$/,
+      include: [path.resolve(__dirname, 'react_src')],
+      exclude: [path.resolve(__dirname, 'node_modules')],
+      use: [
+        'cache-loader',
+        {
+          loader: 'babel-loader?cacheDirectory=true',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-transform-runtime']
+          }
         }
-      }
+      ]
     },
     {
       test: /\.less$/,
-      include: __dirname + '/src',
       use: ['cache-loader', 'css-hot-loader', 'style-loader', 'css-loader', 'less-loader', 'postcss-loader']
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-      use: [{
-        loader: ['cache-loader', 'url-loader'],
-        options: {
-          limit: 8192,
-          name: 'img/[name].[hash:6].[ext]'
+      use: [
+        'cache-loader',
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
+            name: 'img/[name].[hash:6].[ext]'
+          }
         }
-      }]
+      ]
     },
     {
       test: /\.(woff|eot|ttf|svg|gif)$/,
-      use: [{
-        loader: ['cache-loader', 'url-loader'],
-        options: {
-          limit: 8192,
-          name: 'font/[name].[hash:6].[ext]'
+      use: [
+        'cache-loader',
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
+            name: 'font/[name].[hash:6].[ext]'
+          }
         }
-      }]
+      ]
     },
     {
       test: /\.(html)$/,
-      use: {
+      use: [{
         loader: 'html-loader',
         options: {
           minimize: true
         }
-      }
+      }]
     }
   ]
 }
 
+// new AddAssetHtmlPlugin({  // dll 注入 html 文件
+//   filepath: path.resolve(__dirname, './src/assets/dll/*.dll.js'),
+// }),
 const plugins = [
-  new HtmlWebPackPlugin({
-    template: htmlTemplete,
-    filename: './index.html'
-  }),
-  new AddAssetHtmlPlugin({
-    filepath: path.resolve(__dirname, './src/assets/dll/*.dll.js'),
-  }),
-  new webpack.AutomaticPrefetchPlugin(),
   new ProgressBarPlugin(),  // 打包进度
-  new webpack.HotModuleReplacementPlugin(),  // 热加载
   new WebpackBuildNotifierPlugin({  // 输出打包信息
     title: 'My Project Webpack Build',
     suppressSuccess: true
   }),
+  new webpack.AutomaticPrefetchPlugin(),
+  new webpack.HotModuleReplacementPlugin(),  // 热加载
   new MiniCssExtractPlugin({  // css 打包压缩 只用在生产
     filename: '[name].[hash:6].css',
     chunkFilename: '[id].[hash:6].css'
@@ -138,41 +128,35 @@ const plugins = [
       }
     }
   }),
-  createHappyPlugin('happy-babel', [{  // 多线程打包 js
-    loader: 'babel-loader',
-    options: {
-      babelrc: true,
-      cacheDirectory: true // 启用缓存
-    }
-  }]),
-  createHappyPlugin('style', [{  // 多线程打包 css
-    loader: [ 'style-loader', 'css-loader', 'less-loader' ],
-    options: {
-      babelrc: true,
-      cacheDirectory: true // 启用缓存
-    }
-  }]),
-  new webpack.DllReferencePlugin({  // dll 打包
-    manifest: require(manifestVue)
+  // 多线程打包 js
+  new HappyPack({
+    id: 'js',
+    loaders: [{ loader: 'babel-loader', options: { babelrc: true, cacheDirectory: true }}],
+    threadPool: happyThreadPool,
+    verbose: true
   }),
-  new webpack.DllReferencePlugin({  // dll 打包
-    manifest: require(manifestUtils)
-  }),
-  new webpack.DllReferencePlugin({  // dll 打包
-    manifest: require(manifestReact)
+  // 多线程打包 css
+  new HappyPack({
+    id: 'css',
+    loaders: [ 'style-loader', 'css-loader', 'less-loader' ],
+    threadPool: happyThreadPool,
+    verbose: true
   })
 ]
 
 const devServer = {
+  compress: true,
+  watchContentBase: true,
+  progress: true,
+  open: true,
   hot: true,
   disableHostCheck: true,
   host: 'localhost',
-  port: 8010,
+  port: 9020,
   historyApiFallback: false,
-  contentBase,
   proxy: {
     '/api': {
-      target: 'http://localhost:3009',
+      target: 'http://localhost:6000',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '/api'
@@ -188,9 +172,10 @@ const externals = {
   'elemenct-ui': 'ELEMENT',
   'axios': 'axios',
   'fastclick': 'FastClick',
-  'antd': 'antd',
-  'react-redux': 'react-redux',
   'redux': 'redux',
+  'react-dom': 'react-dom',
+  'react-redux': 'react-redux',
+  'antd': 'antd',
   'moment': 'moment',
   'lodash': 'lodash',
 }
@@ -218,8 +203,8 @@ const optimization = {
     }
   }
 }
-// 打包进度条
-const webpackConfig = smp.wrap({
+
+module.exports = {
   mode: 'development',
   entry: entryIndex,
   output,
@@ -229,6 +214,4 @@ const webpackConfig = smp.wrap({
   plugins,
   devServer,
   optimization
-});
-
-module.exports = webpackConfig
+}

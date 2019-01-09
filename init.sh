@@ -15,7 +15,7 @@ npm i -D url-loader
 npm i -D html-loader
 npm i -D @babel/plugin-transform-runtime @babel/runtime
 npm s -D html-webpack-plugin
-npm i -D less less-loader stylus stylus-loader postcss-loader
+npm i -D less less-loader stylus style-loader postcss-loader css-loader
 npm i -D mini-css-extract-plugin
 npm i -D webpack-bundle-analyzer
 npm i -D speed-measure-webpack-plugin
@@ -31,11 +31,7 @@ npm i -D cache-loader
 npm i -D webpack-merge
 npm i -D uglifyjs-webpack-plugin
 npm i -D @babel/polyfill
-npm i -S vue
-npm i -S vue-router
-npm i -S vuex
+npm i -D loglevel
+npm i -S vue vue-router vuex element-ui
 npm i -S axios
-npm i -S react
-npm i -S react-dom
-npm i -S antd
-npm i -S element-ui
+npm i -S react react-dom redux react-redux antd

@@ -5,11 +5,11 @@
   "main": "webpack.base.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node_modules/.bin/webpack-dev-server --config webpack.base.config.js",
-    "devVue": "node_modules/.bin/webpack-dev-server --config webpack.vue.dev.config.js",
-    "devReact": "node_modules/.bin/webpack-dev-server --config webpack.react.dev.config.js",
-    "analyze": "node_modules/.bin/webpack-dashboard -- webpack-dev-server --config webpack.analyze.config.js",
-    "dll": "node_modules/.bin/webpack --mode production --config webpack.dll.config.js"
+    "dev": "node_modules/.bin/webpack-dev-server --config ./webpack.base.config.js",
+    "devVue": "node_modules/.bin/webpack-dev-server --config ./webpack.vue.dev.config.js",
+    "devReact": "node_modules/.bin/webpack-dev-server --config ./webpack.react.dev.config.js",
+    "analyze": "node_modules/.bin/webpack-dashboard -- node_modules/.bin/webpack-dev-server --config ./webpack.analyze.config.js",
+    "dll": "node_modules/.bin/webpack --mode production --config ./webpack.dll.config.js"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +24,7 @@
     "babel-loader": "^8.0.5",
     "cache-loader": "^2.0.1",
     "clean-webpack-plugin": "^1.0.0",
+    "css-loader": "^2.1.0",
     "happypack": "^5.0.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
@@ -35,6 +36,7 @@
     "progress-bar-webpack-plugin": "^1.11.0",
     "react-hot-loader": "^4.6.3",
     "speed-measure-webpack-plugin": "^1.2.5",
+    "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "uglifyjs-webpack-plugin": "^2.1.1",
