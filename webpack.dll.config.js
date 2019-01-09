@@ -1,31 +1,35 @@
 const webpack = require('webpack');
-const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const dllPath = path.resolve(__dirname, '../src/assets/dll');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-const plugins = () => [
+const dllPath = __dirname + '/src/assets/dll';
+
+const plugins = [
+  new ProgressBarPlugin(),  // 打包进度
   new CleanWebpackPlugin(['*.js'], {
     root: dllPath,
   }),
   new webpack.DllPlugin({
-    name: '_dll_[name]',
-    path: path.join(__dirname, './', '[name].dll.manifest.json')
+    name: '[name]_[hash:6]_dll',
+    path: __dirname + '/src/assets/dll' + '/[name]-manifest.json'
   }),
 ]
 
-const entry = () => ({
-  vue: ['babel-polyfill', 'fastclick', 'vue', 'vue-router', 'vuex', 'axios', 'element-ui', 'antd']
-})
+const entry = {
+  vue: ['vue', 'vue-router', 'vuex', 'element-ui'],
+  react: ['react', 'react-dom', 'antd'],
+  utils: ['axios', 'moment', 'lodash'],
+}
 
-const output = () => ({
-  filename: '[name]-[hash].dll.js',
+const output = {
+  filename: '[name]-[hash:6].dll.js',
   path: dllPath,
-  library: '_dll_[name]'
-})
+  library: '[name]_[hash:6]_dll'
+}
 
 module.exports = {
   mode: 'production',
   entry,
   output,
-  plugins
+  plugins,
 };

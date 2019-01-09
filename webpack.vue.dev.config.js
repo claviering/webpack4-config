@@ -2,7 +2,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpackBaseConfig = require('./webpack.base.config');
 const merge = require('webpack-merge')
 
-const module = () => ({
+const webpackModule = {
   rules: [
     {
       test: /\.vue$/,
@@ -11,13 +11,13 @@ const module = () => ({
       }
     }
   ]
-})
+}
 
-const plugins = () => [
+const plugins = [
   new VueLoaderPlugin()
 ]
 
-const externals = () => ({
+const externals = {
   'vue': 'Vue',
   'vue-router': 'VueRouter',
   'vuex': 'vuex',
@@ -28,10 +28,10 @@ const externals = () => ({
   'redux': 'redux',
   'moment': 'moment',
   'lodash': 'lodash',
-})
+}
 
 const webpackVueDevConfig = {
-  module,
+  module: webpackModule,
   plugins,
   externals
 }

@@ -30,3 +30,12 @@ npm i -D add-asset-html-webpack-plugin
 npm i -D cache-loader
 npm i -D webpack-merge
 npm i -D uglifyjs-webpack-plugin
+npm i -D @babel/polyfill
+npm i -S vue
+npm i -S vue-router
+npm i -S vuex
+npm i -S axios
+npm i -S react
+npm i -S react-dom
+npm i -S antd
+npm i -S element-ui

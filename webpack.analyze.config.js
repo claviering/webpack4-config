@@ -3,7 +3,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const webpackBaseConfig = require('./webpack.base.config');
 const merge = require('webpack-merge')
 
-const plugins = () => [
+const plugins = [
   new DashboardPlugin(),  // 打包结果分析 控制台版
   new BundleAnalyzerPlugin({  // 打包结果分析 网页版
     analyzerMode: server,

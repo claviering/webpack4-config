@@ -1,13 +1,26 @@
+const os = require('os');
+const path = require('path');
 const webpack = require('webpack');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+
+// config
+const entryIndex = __dirname + './react_src/index.js'
+const htmlTemplete = __dirname + './react_src/index.html'
+const contentBase = __dirname + './react_src'
+const manifestVue = __dirname + '/src/assets/dll' + '/vue-manifest.json'  // dll 打包文件名
+const manifestUtils = __dirname + '/src/assets/dll' + '/utils-manifest.json'  // dll 打包文件名
+const manifestReact = __dirname + '/src/assets/dll' + '/react-manifest.json'  // dll 打包文件名
+
 const createHappyPlugin = (id, loaders) => new HappyPack({
     id: id,
     loaders: loaders,
@@ -15,32 +28,23 @@ const createHappyPlugin = (id, loaders) => new HappyPack({
     verbose: process.env.HAPPY_VERBOSE === '1'
 });
 
-const autoAddDllRes = () => {
-  const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-  return new AddAssetHtmlPlugin([{ // 往html中注入dll js
-      publicPath: config.common.publicPath + "dll/",  // 注入到html中的路径
-      outputPath: "dll", // 最终输出的目录
-      filepath: resolve("src/assets/dll/*.js"),
-      includeSourcemap: false,
-      typeOfAsset: "js" // options js、css; default js
-  }]);
-};
-const output = () => ({
+const output = {
   path:  __dirname + '/dist',
   filename: 'bundle.[hash:6].js',
   chunkFilename: 'chunks/[name].[hash:6].js',
-})
-const resolve = () => ({
+}
+
+const resolve = {
   extensions: ['.js', '.jsx', '.vue', '.less'],
   modules: [__dirname + '/node_modules'],
   mainFields: ['index'],
   alias: {
     antdcss: 'antd/dist/antd.min.css',
-    vue$: "vue/dist/vue.common",
+    vue$: 'vue/dist/vue.common',
     '@': __dirname + '/src'
   },
-})
-const module = () => ({
+}
+const webpackModule = {
   noParse: /jquery|lodash/,
   rules: [
     {
@@ -90,19 +94,26 @@ const module = () => ({
       }
     }
   ]
-})
-const plugins = () => [
+}
+
+const plugins = [
+  new HtmlWebPackPlugin({
+    template: htmlTemplete,
+    filename: './index.html'
+  }),
+  new AddAssetHtmlPlugin({
+    filepath: path.resolve(__dirname, './src/assets/dll/*.dll.js'),
+  }),
   new webpack.AutomaticPrefetchPlugin(),
   new ProgressBarPlugin(),  // 打包进度
   new webpack.HotModuleReplacementPlugin(),  // 热加载
   new WebpackBuildNotifierPlugin({  // 输出打包信息
-    title: "My Project Webpack Build",
-    logo: path.resolve("./img/favicon.png"),
+    title: 'My Project Webpack Build',
     suppressSuccess: true
   }),
   new MiniCssExtractPlugin({  // css 打包压缩 只用在生产
-    filename: "[name].[hash:6].css",
-    chunkFilename: "[id].[hash:6].css"
+    filename: '[name].[hash:6].css',
+    chunkFilename: '[id].[hash:6].css'
   }),
   new OptimizeCssAssetsPlugin({  // css 打包加速
     assetNameRegExp: /\.optimize\.css$/g,
@@ -142,22 +153,23 @@ const plugins = () => [
     }
   }]),
   new webpack.DllReferencePlugin({  // dll 打包
-    manifest: require('./vue.dll.manifest.json')
+    manifest: require(manifestVue)
   }),
-  autoAddDllRes()
+  new webpack.DllReferencePlugin({  // dll 打包
+    manifest: require(manifestUtils)
+  }),
+  new webpack.DllReferencePlugin({  // dll 打包
+    manifest: require(manifestReact)
+  })
 ]
-// 打包进度条
-const webpackConfig = smp.wrap({
-  plugins
-});
 
-const devServer = () => ({
+const devServer = {
   hot: true,
   disableHostCheck: true,
   host: 'localhost',
   port: 8010,
   historyApiFallback: false,
-  contentBase: __dirname + './src',
+  contentBase,
   proxy: {
     '/api': {
       target: 'http://localhost:3009',
@@ -167,9 +179,9 @@ const devServer = () => ({
       }
     }
   }
-})
+}
 
-const externals = () => ({
+const externals = {
   'vue': 'Vue',
   'vue-router': 'VueRouter',
   'vuex': 'vuex',
@@ -181,9 +193,9 @@ const externals = () => ({
   'redux': 'redux',
   'moment': 'moment',
   'lodash': 'lodash',
-})
+}
 
-const optimization = () => ({
+const optimization = {
   splitChunks: {
     chunks: 'async',
     minSize: 30000,
@@ -205,16 +217,18 @@ const optimization = () => ({
       }
     }
   }
-})
-
-module.exports = {
+}
+// 打包进度条
+const webpackConfig = smp.wrap({
   mode: 'development',
-  entry: __dirname + './src/index.js',
+  entry: entryIndex,
   output,
   resolve,
-  module,
+  module: webpackModule,
   externals,
   plugins,
   devServer,
   optimization
-};
+});
+
+module.exports = webpackConfig
