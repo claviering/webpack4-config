@@ -1,6 +1,6 @@
 #! /bin/sh
+source ~/.bashrc
 nvm use 10
-npm init -y
 npm i -D webpack@4 webpack-dev-server webpack-cli
 npm i -D @babel/core @babel/preset-env babel-loader @babel/preset-react
 echo "{" >> .babelrc
