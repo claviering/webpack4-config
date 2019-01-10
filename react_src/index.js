@@ -15,6 +15,7 @@ const Index = () => {
         <Button type="danger">Primary</Button>
       </Col>
     </Row>
+    <img src={require('./1.jpeg')} />
   </div>;
 };
 
