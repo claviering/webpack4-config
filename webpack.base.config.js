@@ -6,12 +6,16 @@ const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 // config
 const entryIndex = __dirname + '/react_src/index.js'
 const contentBase = __dirname + '/react_src'  // 项目源代码目录
+const htmlTemplete = __dirname + '/react_src/index.html'
+const manifestReact = __dirname + '/src/assets/dll' + '/react-manifest.json'  // dll 打包文件名
 
 const output = {
   path:  __dirname + '/dist',
@@ -90,10 +94,16 @@ const webpackModule = {
   ]
 }
 
-// new AddAssetHtmlPlugin({  // dll 注入 html 文件
-//   filepath: path.resolve(__dirname, './src/assets/dll/*.dll.js'),
-// }),
 const plugins = [
+  // new webpack.DllReferencePlugin({
+  //   context: path.join(__dirname),
+  //   manifest: require('./src/assets/dll/react-manifest.json'),
+  // }),
+  new HtmlWebpackPlugin({
+    template: htmlTemplete
+  }),
+  // dll 注入到 html 文件
+  // new AddAssetHtmlPlugin({ filepath: require.resolve(__dirname, './src/assets/dll/react-153070.dll.js') }),
   new ProgressBarPlugin(),  // 打包进度
   new WebpackBuildNotifierPlugin({  // 输出打包信息
     title: 'My Project Webpack Build',
@@ -172,6 +182,7 @@ const externals = {
   'elemenct-ui': 'ELEMENT',
   'axios': 'axios',
   'fastclick': 'FastClick',
+  'react': 'react',
   'redux': 'redux',
   'react-dom': 'react-dom',
   'react-redux': 'react-redux',

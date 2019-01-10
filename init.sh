@@ -1,4 +1,5 @@
 #! /bin/sh
+rm .babelrc
 echo "{" >> .babelrc
 echo "  \"presets\": [" >> .babelrc
 echo "    \"@babel/preset-env\"," >> .babelrc
@@ -14,18 +15,18 @@ npm i -D @babel/core
 npm i -D @babel/preset-env
 npm i -D babel-loader
 npm i -D @babel/preset-react
-npm i -D react-hot-loader
 npm i -D vue-loader
 npm i -D url-loader
 npm i -D html-loader
-npm i -D @babel/plugin-transform-runtime
-npm i -D @babel/runtime
-npm s -D html-webpack-plugin
 npm i -D less
 npm i -D less-loader
 npm i -D style-loader
 npm i -D postcss-loader
 npm i -D css-loader
+npm i -D cache-loader
+npm i -D @babel/plugin-transform-runtime
+npm i -D @babel/runtime
+npm s -D html-webpack-plugin
 npm i -D mini-css-extract-plugin
 npm i -D webpack-bundle-analyzer
 npm i -D speed-measure-webpack-plugin
@@ -37,7 +38,6 @@ npm i -D webpack-parallel-uglify-plugin
 npm i -D happypack
 npm i -D clean-webpack-plugin
 npm i -D add-asset-html-webpack-plugin
-npm i -D cache-loader
 npm i -D webpack-merge
 npm i -D uglifyjs-webpack-plugin
 npm i -D @babel/polyfill
