@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
@@ -92,13 +93,19 @@ const webpackModule = {
 
 const plugins = [
   new webpack.DllReferencePlugin({
-    context: path.join(__dirname),
+    context: __dirname,
     manifest: require('./src/assets/dll/react-manifest.json'),
   }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
   // dll 注入到 html 文件
+  new HtmlWebpackIncludeAssetsPlugin({
+    files: htmlTemplete,
+    assets: ['./src/assets/dll/react-153070.dll.js'],
+    append: true,
+    hash: true
+  }),
   // new AddAssetHtmlPlugin({ filepath: require.resolve(__dirname, './src/assets/dll/react-153070.dll.js') }),
   new ProgressBarPlugin(),  // 打包进度
   new webpack.AutomaticPrefetchPlugin(),

@@ -37,6 +37,7 @@ npm i -D webpack-parallel-uglify-plugin
 npm i -D happypack
 npm i -D clean-webpack-plugin
 npm i -D add-asset-html-webpack-plugin
+npm i -D html-webpack-include-assets-plugin
 npm i -D webpack-merge
 npm i -D uglifyjs-webpack-plugin
 npm i -D @babel/polyfill
