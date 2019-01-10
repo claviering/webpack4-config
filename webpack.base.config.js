@@ -2,7 +2,6 @@ const os = require('os');
 const path = require('path');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -25,13 +24,10 @@ const output = {
 
 const resolve = {
   extensions: ['.js', '.jsx', '.vue', '.less'],
-  modules: [path.resolve(__dirname, 'node_modules')],
-  mainFields: ['index'],
+  modules: ['node_modules'],
   alias: {
-    antdcss: 'antd/dist/antd.min.css',
-    vue$: 'vue/dist/vue.common',
     '@': contentBase
-  },
+  }
 }
 
 const webpackModule = {
@@ -95,20 +91,16 @@ const webpackModule = {
 }
 
 const plugins = [
-  // new webpack.DllReferencePlugin({
-  //   context: path.join(__dirname),
-  //   manifest: require('./src/assets/dll/react-manifest.json'),
-  // }),
+  new webpack.DllReferencePlugin({
+    context: path.join(__dirname),
+    manifest: require('./src/assets/dll/react-manifest.json'),
+  }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
   // dll 注入到 html 文件
   // new AddAssetHtmlPlugin({ filepath: require.resolve(__dirname, './src/assets/dll/react-153070.dll.js') }),
   new ProgressBarPlugin(),  // 打包进度
-  new WebpackBuildNotifierPlugin({  // 输出打包信息
-    title: 'My Project Webpack Build',
-    suppressSuccess: true
-  }),
   new webpack.AutomaticPrefetchPlugin(),
   new webpack.HotModuleReplacementPlugin(),  // 热加载
   new MiniCssExtractPlugin({  // css 打包压缩 只用在生产
@@ -158,7 +150,7 @@ const devServer = {
   compress: true,
   watchContentBase: true,
   progress: true,
-  open: true,
+  open: false,
   hot: true,
   disableHostCheck: true,
   host: 'localhost',
