@@ -41,7 +41,6 @@ const webpackModule = {
       include: [path.resolve(__dirname, 'react_src')],
       exclude: [path.resolve(__dirname, 'node_modules')],
       use: [
-        'cache-loader',
         {
           loader: 'babel-loader?cacheDirectory=true',
           options: {
@@ -53,11 +52,11 @@ const webpackModule = {
     },
     {
       test: /\.css$/,
-      use: ['cache-loader', 'css-hot-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader']
+      use: ['style-loader', 'css-loader']
     },
     {
       test: /\.less$/,
-      use: ['cache-loader', 'css-hot-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+      use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -75,7 +74,6 @@ const webpackModule = {
     {
       test: /\.(woff|eot|ttf|svg|gif)$/,
       use: [
-        'cache-loader',
         {
           loader: 'url-loader',
           options: {
@@ -107,110 +105,13 @@ const plugins = [
   }),
   new ProgressBarPlugin(),  // 打包进度
   new webpack.HotModuleReplacementPlugin(),  // 热加载
-  new MiniCssExtractPlugin({  // css 打包压缩 只用在生产
-    filename: '[name].[hash:6].css',
-    chunkFilename: '[id].[hash:6].css'
-  }),
-  // 压缩css, 同时去除重复的样式，减少CSS打包后的体积
-  new OptimizeCssAssetsPlugin({
-    assetNameRegExp: /\.optimize\.css$/g,
-    cssProcessor: require('cssnano'),
-    cssProcessorPluginOptions: {
-      preset: ['default', { discardComments: { removeAll: true } }],
-    },
-    canPrint: true
-  }),
-  // 多线程打包
-  new ParallelUglifyPlugin({
-    cacheDir: '.cache/',
-    uglifyJS: {
-      output: {
-          comments: false,
-          beautify: false
-      },
-      compress: {
-          warnings: false,
-          drop_console: true,
-          collapse_vars: true,
-          reduce_vars: true
-      }
-    }
-  }),
-  // 多线程打包 js
-  new HappyPack({
-    id: 'js',
-    loaders: [{ loader: 'babel-loader', options: { babelrc: true, cacheDirectory: true }}],
-    threadPool: happyThreadPool,
-    verbose: true
-  }),
-  // 多线程打包 css
-  new HappyPack({
-    id: 'css',
-    loaders: [ 'style-loader', 'css-loader', 'less-loader' ],
-    threadPool: happyThreadPool,
-    verbose: true
-  })
 ]
 
 const devServer = {
-  compress: true,
-  watchContentBase: true,
-  progress: true,
   open: false,
   hot: true,
-  disableHostCheck: true,
   host: 'localhost',
   port: 9020,
-  historyApiFallback: false,
-  proxy: {
-    '/api': {
-      target: 'http://localhost:6000',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': '/api'
-      }
-    }
-  }
-}
-
-const externals = {
-  'vue': 'Vue',
-  'vue-router': 'VueRouter',
-  'vuex': 'vuex',
-  'elemenct-ui': 'ELEMENT',
-  'axios': 'axios',
-  'fastclick': 'FastClick',
-  'react': 'react',
-  'redux': 'redux',
-  'react-dom': 'react-dom',
-  'react-redux': 'react-redux',
-  'antd': 'antd',
-  'moment': 'moment',
-  'lodash': 'lodash',
-}
-
-const optimization = {
-  splitChunks: {
-    chunks: 'async',
-    minSize: 30000,
-    maxSize: 0,
-    minChunks: 1,
-    maxAsyncRequests: 5,
-    maxInitialRequests: 3,
-    automaticNameDelimiter: '~',
-    name: true,
-    cacheGroups: {
-      vendors: {
-        test: /[\\/]node_modules[\\/]/,
-        priority: -10
-      },
-      default: {
-        minChunks: 2,
-        priority: -20,
-        reuseExistingChunk: true
-      }
-    }
-  }
 }
 
 module.exports = {
@@ -219,8 +120,6 @@ module.exports = {
   output,
   resolve,
   module: webpackModule,
-  // externals,
   plugins,
-  devServer,
-  optimization
+  devServer
 }
