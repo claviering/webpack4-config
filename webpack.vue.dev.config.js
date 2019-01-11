@@ -2,8 +2,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const webpackBaseConfig = require('./webpack.base.config');
 const merge = require('webpack-merge')
 
-const devMode = process.env.NODE_ENV !== 'production'
-
 const webpackModule = {
   rules: [
     {

@@ -20,4 +20,7 @@ const webpackAnalyzeConfig = {
 }
 
 module.exports = smp.wrap(merge(webpackBaseConfig, webpackAnalyzeConfig))
+// for vue repo
+// const webpackVueDevConfig = require('./webpack.vue.dev.config');
+// module.exports = smp.wrap(merge(webpackBaseConfig, webpackVueDevConfig, webpackAnalyzeConfig))
 

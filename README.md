@@ -30,7 +30,8 @@ node v10
 ```
 
 ## 开发
-vuejs  
+
+### vuejs  repo
 `npm run devVeu`
 
 dll 插件
@@ -42,7 +43,9 @@ new webpack.DllReferencePlugin({
 ```
 index.html 引入 react*.dll.js
 
-reactjs  
+`vue-style-loader` 不需要, 默认在 `vue-loader` 中使用
+
+### reactjs  repo
 `npm run devReact`
 
 dll 插件
