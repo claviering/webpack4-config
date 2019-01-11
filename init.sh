@@ -13,8 +13,10 @@ npm i -D webpack-dev-server
 npm i -D webpack-cli
 npm i -D @babel/core
 npm i -D @babel/preset-env
+npm i -D @babel/plugin-proposal-class-properties
 npm i -D babel-loader
 npm i -D @babel/preset-react
+npm i -D @babel/plugin-syntax-dynamic-import
 npm i -D babel-plugin-import
 npm i -D vue-loader
 npm i -D vue-template-compiler

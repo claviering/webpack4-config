@@ -28,6 +28,23 @@ node v10
 <script src="../src/assets/dll/react-153070.dll.js" charset="utf-8"></script>
 <script src="../src/assets/dll/utils-153070.dll.js" charset="utf-8"></script>
 ```
+## 配置
+
+项目根目录 babel.config.js
+```js
+module.exports = {
+  presets: ['@babel/preset-env', '@babel/preset-react'],
+  plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-syntax-dynamic-import']
+};
+```
+项目根目录 postcss.config.js
+```js
+module.exports = {
+  plugins: [
+    require('autoprefixer')
+  ]
+}
+```
 
 ## 开发
 
