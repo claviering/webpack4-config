@@ -3,10 +3,15 @@
 ## webpack base config
 
 ```js
-const entryIndex = __dirname + './react_src/index.js'
-const htmlTemplete = __dirname + './react_src/index.html'
+const contentBase = __dirname + '/react_src'
+const entryIndex = __dirname + '/react_src/index.js'
+const htmlTemplete = __dirname + '/react_src/index.html'
 ```
 
 ## dev
 
 `npm run devReact`
+
+## build
+
+`npm run buildReact`

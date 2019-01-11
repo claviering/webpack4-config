@@ -22,12 +22,39 @@ node v10
 
 `npm run dll`
 
+需要手动添加 dll.js 到 index.html
+
+```html
+<script src="../src/assets/dll/react-153070.dll.js" charset="utf-8"></script>
+<script src="../src/assets/dll/utils-153070.dll.js" charset="utf-8"></script>
+```
+
 ## 开发
 vuejs  
 `npm run devVeu`
 
+dll 插件
+```js
+new webpack.DllReferencePlugin({
+  context: __dirname,
+  manifest: require('./src/assets/dll/vue-manifest.json'),
+}),
+```
+index.html 引入 react*.dll.js
+
 reactjs  
 `npm run devReact`
+
+dll 插件
+
+```js
+new webpack.DllReferencePlugin({
+  context: __dirname,
+  manifest: require('./src/assets/dll/react-manifest.json'),
+}),
+```
+
+index.html 引入 vue*.dll.js
 
 ## 部署
 vuejs  

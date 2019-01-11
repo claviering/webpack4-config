@@ -9,7 +9,7 @@ const Index = () => {
     <div className="center" style={{"color": "yellow"}}>Hello React First!</div>
     <Row>
       <Col span={12}>
-        <Button type="danger">Primary</Button>
+        <Button type="danger">Primary 2</Button>
       </Col>
       <Col span={12}>
         <Button type="danger">Primary</Button>

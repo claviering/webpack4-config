@@ -8,11 +8,11 @@ const merge = require('webpack-merge')
 const plugins = [
   new DashboardPlugin(),  // 打包结果分析 控制台版
   new BundleAnalyzerPlugin({  // 打包结果分析 网页版
-    analyzerMode: server,
+    analyzerMode: 'server',
     analyzerHost: '127.0.0.1',
     analyzerPort: 8888,
     openAnalyzer: true
-  }),
+  })
 ]
 
 const webpackAnalyzeConfig = {

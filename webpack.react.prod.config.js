@@ -7,17 +7,18 @@ const merge = require('webpack-merge')
 const optimization = {
   minimizer: [
     new UglifyJsPlugin({
-      include: __dirname + '/src',
+      include: __dirname + '/react_src',
       exclude: /node_modules/,
     }),
     new OptimizeCSSAssetsPlugin({})
   ]
 }
 const plugins = [
-  new HtmlWebpackPlugin({  // 压缩 html
-    template: __dirname + './index.html',
+  // 压缩 html
+  new HtmlWebpackPlugin({
+    template: __dirname + '/react_src/index.html',
     title: 'title',
-    devMode: true
+    hash: true,
   })
 ]
 

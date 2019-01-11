@@ -14,10 +14,9 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const devMode = process.env.NODE_ENV !== 'production'
 
 // config
-const entryIndex = __dirname + '/react_src/index.js'
-const contentBase = __dirname + '/react_src'  // 项目源代码目录
-const htmlTemplete = __dirname + '/react_src/index.html'
-const manifestReact = __dirname + '/src/assets/dll' + '/react-manifest.json'  // dll 打包文件名
+const contentBase = __dirname + '/vue_src'
+const entryIndex = __dirname + '/vue_src/index.js'
+const htmlTemplete = __dirname + '/vue_src/index.html'
 
 const output = {
   path:  __dirname + '/dist',
@@ -38,7 +37,7 @@ const webpackModule = {
   rules: [
     {
       test: /\.js[x]?$/,
-      include: [path.resolve(__dirname, 'react_src')],
+      include: [contentBase],
       exclude: [path.resolve(__dirname, 'node_modules')],
       use: [
         'cache-loader',
@@ -53,7 +52,7 @@ const webpackModule = {
     },
     {
       test: /\.css$/,
-      use: ['cache-loader', 'css-hot-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader']
+      use: ['cache-loader', 'css-hot-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
     },
     {
       test: /\.less$/,
@@ -100,7 +99,7 @@ const webpackModule = {
 const plugins = [
   new webpack.DllReferencePlugin({
     context: __dirname,
-    manifest: require('./src/assets/dll/react-manifest.json'),
+    manifest: require('./src/assets/dll/vue-manifest.json'),
   }),
   new HtmlWebpackPlugin({
     template: htmlTemplete

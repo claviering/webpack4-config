@@ -17,11 +17,13 @@ npm i -D babel-loader
 npm i -D @babel/preset-react
 npm i -D babel-plugin-import
 npm i -D vue-loader
+npm i -D vue-template-compiler
 npm i -D url-loader
 npm i -D html-loader
 npm i -D less
 npm i -D less-loader
 npm i -D css-loader
+npm i -D vue-style-loader
 npm i -D style-loader
 npm i -D postcss-loader
 npm i -D postcss-import
