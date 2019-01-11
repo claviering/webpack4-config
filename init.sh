@@ -19,6 +19,7 @@ npm i -D babel-plugin-import
 npm i -D vue-loader
 npm i -D vue-template-compiler
 npm i -D url-loader
+npm i -D file-loader
 npm i -D html-loader
 npm i -D less
 npm i -D less-loader

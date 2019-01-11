@@ -33,7 +33,6 @@ const resolve = {
 }
 
 const webpackModule = {
-  noParse: /jquery|lodash/,
   rules: [
     {
       test: /\.js[x]?$/,
