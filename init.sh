@@ -1,11 +1,4 @@
 #! /bin/sh
-rm .babelrc
-echo "{" >> .babelrc
-echo "  \"presets\": [" >> .babelrc
-echo "    \"@babel/preset-env\"," >> .babelrc
-echo "    \"@babel/preset-react\"" >> .babelrc
-echo "  ]" >> .babelrc
-echo "}" >> .babelrc
 source ~/.bashrc
 nvm use 10
 npm i -D webpack@4

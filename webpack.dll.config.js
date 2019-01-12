@@ -4,6 +4,11 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 const dllPath = __dirname + '/src/assets/dll';
 
+const resolve = {
+  extensions: ['.js', '.jsx', '.vue', '.less', 'json'],
+  modules: ['node_modules']
+}
+
 const plugins = [
   new ProgressBarPlugin(),  // 打包进度
   new CleanWebpackPlugin(['*.js'], {
@@ -30,6 +35,7 @@ const output = {
 module.exports = {
   mode: 'production',
   entry,
+  resolve,
   output,
   plugins,
 };

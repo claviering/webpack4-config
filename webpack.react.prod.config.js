@@ -1,3 +1,4 @@
+const os = require('os');
 const webpackReactDevConfig = require('./webpack.react.dev.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -9,6 +10,8 @@ const optimization = {
     new UglifyJsPlugin({
       include: __dirname + '/react_src',
       exclude: /node_modules/,
+      cache: true,
+      parallel: os.cpus().length,
     }),
     new OptimizeCSSAssetsPlugin({})
   ]

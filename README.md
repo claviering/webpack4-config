@@ -30,6 +30,8 @@ node v10
 ```
 ## 配置
 
+删除 .babelrc 使用 babel.config.js
+
 项目根目录 babel.config.js
 ```js
 module.exports = {
@@ -61,6 +63,41 @@ new webpack.DllReferencePlugin({
 index.html 引入 react*.dll.js
 
 `vue-style-loader` 不需要, 默认在 `vue-loader` 中使用
+
+#### vue-loader v15
+
+需要搭配插件使用
+
+```js
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const webpackModule = {
+  rules: [
+    {
+      test: /\.vue$/,
+      use: ['cache-loader','vue-loader']
+    }
+  ]
+}
+const plugins = [
+  new VueLoaderPlugin()
+]
+```
+
+#### vux 移动组件库
+
+注意 vux 版本问题, 版本不同可能会出问题, 用的是现在最新的
+`"vux": "^2.9.2"`
+`"vux-loader": "^1.2.9"`
+
+需要使用 vux-loader
+```js
+const vuxLoader = require('vux-loader')
+const webpackConfig = originalConfig // 原来的 module.exports 代码赋值给变量 webpackConfig
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: ['vux-ui']
+})
+```
 
 ### reactjs  repo
 `npm run devReact`

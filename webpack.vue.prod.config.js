@@ -1,3 +1,4 @@
+const os = require('os');
 const webpackVueDevConfig = require('./webpack.vue.dev.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -9,6 +10,8 @@ const optimization = {
     new UglifyJsPlugin({
       include: __dirname + '/vue_src',
       exclude: /node_modules/,
+      cache: true,
+      parallel: os.cpus().length,
     }),
     new OptimizeCSSAssetsPlugin({})
   ]
