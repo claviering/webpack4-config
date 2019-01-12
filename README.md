@@ -60,7 +60,7 @@ new webpack.DllReferencePlugin({
   manifest: require('./src/assets/dll/vue-manifest.json'),
 }),
 ```
-index.html 引入 react*.dll.js
+index.html 引入 vue*.dll.js
 
 `vue-style-loader` 不需要, 默认在 `vue-loader` 中使用
 
@@ -111,7 +111,7 @@ new webpack.DllReferencePlugin({
 }),
 ```
 
-index.html 引入 vue*.dll.js
+index.html 引入 react*.dll.js
 
 ## 部署
 vuejs  
