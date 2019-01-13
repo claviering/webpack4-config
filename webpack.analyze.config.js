@@ -1,6 +1,6 @@
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const webpackBaseConfig = require('./webpack.base.config');
+const webpackReactProdConfig = require('./webpack.react.prod.config');
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 const smp = new SpeedMeasurePlugin();
 const merge = require('webpack-merge')
@@ -19,8 +19,8 @@ const webpackAnalyzeConfig = {
   plugins
 }
 
-module.exports = smp.wrap(merge(webpackBaseConfig, webpackAnalyzeConfig))
+module.exports = smp.wrap(merge(webpackReactProdConfig, webpackAnalyzeConfig))
 // for vue repo
-// const webpackVueDevConfig = require('./webpack.vue.dev.config');
-// module.exports = smp.wrap(merge(webpackBaseConfig, webpackVueDevConfig, webpackAnalyzeConfig))
+// const webpackVueProdConfig = require('./webpack.vue.prod.config');
+// module.exports = smp.wrap(merge(webpackBaseConfig, webpackVueProdConfig, webpackAnalyzeConfig))
 

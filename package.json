@@ -6,13 +6,14 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rm -rf ./dist && mkdir -p ./dist/src/assets/dll/ && cp -rp ./src/assets/dll/ ./dist/src/assets/dll/",
-    "dev": "node_modules/.bin/webpack-dev-server --config ./webpack.config.js",
-    "devVue": "node_modules/.bin/webpack-dev-server --config ./webpack.vue.dev.config.js",
-    "devReact": "node_modules/.bin/webpack-dev-server --config ./webpack.react.dev.config.js",
-    "buildReact": "npm run prebuild && node_modules/.bin/webpack --config ./webpack.react.prod.config.js",
-    "buildVue": "npm run prebuild && node_modules/.bin/webpack --config ./webpack.vue.prod.config.js",
-    "analyze": "node_modules/.bin/webpack-dashboard -- node_modules/.bin/webpack-dev-server --config ./webpack.analyze.config.js",
-    "dll": "node_modules/.bin/webpack --mode production --config ./webpack.dll.config.js"
+    "dev": "webpack-dev-server --config ./webpack.config.js",
+    "devVue": "webpack-dev-server --config ./webpack.vue.dev.config.js",
+    "devReact": "webpack-dev-server --config ./webpack.react.dev.config.js",
+    "buildReact": "npm run prebuild && NODE_ENV=production webpack --config ./webpack.react.prod.config.js",
+    "buildVue": "npm run prebuild && NODE_ENV=production webpack --config ./webpack.vue.prod.config.js",
+    "analyze": "webpack-dashboard -- webpack --config ./webpack.analyze.config.js",
+    "dll:dev": "webpack --config ./webpack.dll.config.js",
+    "dll:prod": "NODE_ENV=production webpack --config ./webpack.dll.config.js"
   },
   "keywords": [],
   "author": "",

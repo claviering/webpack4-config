@@ -101,6 +101,10 @@ const plugins = [
     context: __dirname,
     manifest: require(`./src/assets/dll/${repo}-manifest.json`),
   }),
+  new webpack.DllReferencePlugin({
+    context: __dirname,
+    manifest: require(`./src/assets/dll/utils-manifest.json`),
+  }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
@@ -172,22 +176,6 @@ const devServer = {
   }
 }
 
-const externals = {
-  'vue': 'Vue',
-  'vue-router': 'VueRouter',
-  'vuex': 'vuex',
-  'elemenct-ui': 'ELEMENT',
-  'axios': 'axios',
-  'fastclick': 'FastClick',
-  'react': 'react',
-  'redux': 'redux',
-  'react-dom': 'react-dom',
-  'react-redux': 'react-redux',
-  'antd': 'antd',
-  'moment': 'moment',
-  'lodash': 'lodash',
-}
-
 const optimization = {
   splitChunks: {
     chunks: 'async',
@@ -218,7 +206,6 @@ module.exports = {
   output,
   resolve,
   module: webpackModule,
-  // externals,
   plugins,
   devServer,
   optimization

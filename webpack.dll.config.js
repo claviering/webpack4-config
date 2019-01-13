@@ -2,7 +2,8 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
-const dllPath = __dirname + '/src/assets/dll';
+const devMode = process.env.NODE_ENV !== 'production'
+const dllPath = devMode ? __dirname + '/src/assets/dll' : __dirname + '/dist/dll';
 
 const resolve = {
   extensions: ['.js', '.jsx', '.vue', '.less', 'json'],
