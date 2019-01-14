@@ -12,10 +12,10 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const devMode = process.env.NODE_ENV !== 'production'
 
 // config
-const repo = 'vue'
-const contentBase = __dirname + '/vue_src'
-const entryIndex = __dirname + '/vue_src/index.js'
-const htmlTemplete = __dirname + '/vue_src/index.html'
+const repo = 'react'
+const contentBase = __dirname + '/react_src'
+const entryIndex = __dirname + '/react_src/index.js'
+const htmlTemplete = __dirname + '/react_src/index.html'
 
 const output = {
   path:  __dirname + '/dist',
