@@ -1,20 +1,14 @@
 <template>
-  <div class="app">
-    <h1>App</h1>
-    <router-link to="/body">Go to Body</router-link>
-    <router-link to="/main">Go to Main</router-link>
-    <router-view></router-view>
+  <div class="main">
+    <h1>Main</h1>
   </div>
 </template>
 <script>
 import _ from 'lodash';
 export default {
-  components: {
-  },
   data () {
     return {
-      name: 'name',
-      showMain: false
+      name: 'name'
     }
   },
   mounted () {
@@ -25,17 +19,11 @@ export default {
       gender: '1'
     }
     Object.assign
-  },
-  methods: {
-    doMore () {
-      console.log('doMore')
-      this.$router.push('/MyMain')
-    }
   }
 }
 </script>
 <style lang="less" scoped>
-.app{
+.main{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,7 +33,7 @@ export default {
     height: 200px;
   }
   h1{
-    background-color: #000;
+    background-color: pink;
     color: #FFF;
     border-radius: 10px;
     text-align: center;

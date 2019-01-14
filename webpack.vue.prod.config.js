@@ -29,9 +29,6 @@ const optimization = {
   ]
 }
 const plugins = [
-  new MiniCssExtractPlugin({  // css 抽取打包压缩 只用在生产
-    filename: '[name].[hash:6].css',
-  }),
   // 压缩 html
   new HtmlWebpackPlugin({
     template: __dirname + '/vue_src/index.html',

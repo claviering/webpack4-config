@@ -1,9 +1,6 @@
 <template>
   <div class="app">
-    <h1>App</h1>
-    <router-link to="/body">Go to Body</router-link>
-    <router-link to="/main">Go to Main</router-link>
-    <router-view></router-view>
+    <h1>Body</h1>
   </div>
 </template>
 <script>
@@ -45,7 +42,7 @@ export default {
     height: 200px;
   }
   h1{
-    background-color: #000;
+    background-color: yellow;
     color: #FFF;
     border-radius: 10px;
     text-align: center;
