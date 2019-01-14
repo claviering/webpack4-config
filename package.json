@@ -9,8 +9,8 @@
     "dev": "webpack-dev-server --config ./webpack.config.js",
     "devVue": "webpack-dev-server --config ./webpack.vue.dev.config.js",
     "devReact": "webpack-dev-server --config ./webpack.react.dev.config.js",
-    "buildReact": "npm run prebuild && NODE_ENV=production webpack --config ./webpack.react.prod.config.js",
-    "buildVue": "npm run prebuild && NODE_ENV=production webpack --config ./webpack.vue.prod.config.js",
+    "buildReact": "NODE_ENV=production webpack --config ./webpack.react.prod.config.js",
+    "buildVue": "NODE_ENV=production webpack --config ./webpack.vue.prod.config.js",
     "analyze": "webpack-dashboard -- webpack --config ./webpack.analyze.config.js",
     "dll:dev": "webpack --config ./webpack.dll.config.js",
     "dll:prod": "NODE_ENV=production webpack --config ./webpack.dll.config.js"

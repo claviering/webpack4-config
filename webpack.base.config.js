@@ -5,8 +5,6 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
@@ -14,10 +12,10 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const devMode = process.env.NODE_ENV !== 'production'
 
 // config
-const repo = 'react'
-const contentBase = __dirname + '/react_src'
-const entryIndex = __dirname + '/react_src/index.js'
-const htmlTemplete = __dirname + '/react_src/index.html'
+const repo = 'vue'
+const contentBase = __dirname + '/vue_src'
+const entryIndex = __dirname + '/vue_src/index.js'
+const htmlTemplete = __dirname + '/vue_src/index.html'
 
 const output = {
   path:  __dirname + '/dist',
@@ -52,11 +50,11 @@ const webpackModule = {
     },
     {
       test: /\.css$/,
-      use: ['cache-loader', 'css-hot-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+      use: ['cache-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
     },
     {
       test: /\.less$/,
-      use: ['cache-loader', 'css-hot-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+      use: ['cache-loader', devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -110,9 +108,8 @@ const plugins = [
   }),
   new ProgressBarPlugin(),  // 打包进度
   new webpack.HotModuleReplacementPlugin(),  // 热加载
-  new MiniCssExtractPlugin({  // css 打包压缩 只用在生产
+  new MiniCssExtractPlugin({  // css 抽取打包压缩 只用在生产
     filename: '[name].[hash:6].css',
-    chunkFilename: '[id].[hash:6].css'
   }),
   // 压缩css, 同时去除重复的样式，减少CSS打包后的体积
   new OptimizeCssAssetsPlugin({
