@@ -1,14 +1,20 @@
 <template>
   <div class="main">
     <h1>Main</h1>
+    <qr-code v-bind:text="qrCodeUrl" :size="180"></qr-code>
   </div>
 </template>
 <script>
 import _ from 'lodash';
+import qrCode from 'vue-qrcode-component'
 export default {
+  components: {
+    qrCode
+  },
   data () {
     return {
-      name: 'name'
+      name: 'name',
+      qrCodeUrl:'http://weixin.qq.com/r/dnWbg33EuiDFrTng9yBk'
     }
   },
   mounted () {

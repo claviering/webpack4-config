@@ -1,9 +1,18 @@
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const devMode = process.env.NODE_ENV !== 'production'
-const dllPath = devMode ? __dirname + '/src/assets/dll' : __dirname + '/dist/dll';
+const dllPath = __dirname + '/src/assets/dll'
+
+const webpackModule = {
+  rules: [
+    {
+      test: /\.vue$/,
+      use: ['cache-loader','vue-loader']
+    }
+  ]
+}
 
 const resolve = {
   extensions: ['.js', '.jsx', '.vue', '.less', 'json'],
@@ -11,8 +20,9 @@ const resolve = {
 }
 
 const plugins = [
+  new VueLoaderPlugin(),
   new ProgressBarPlugin(),  // 打包进度
-  new CleanWebpackPlugin(['*.js'], {
+  new CleanWebpackPlugin(['*.js', '*json'], {
     root: dllPath,
   }),
   new webpack.DllPlugin({
@@ -22,7 +32,7 @@ const plugins = [
 ]
 
 const entry = {
-  vue: ['vue', 'vue-router', 'vuex', 'element-ui'],
+  vue: ['vue', 'vue-router', 'vuex', 'element-ui', 'vue-qrcode-component'],
   react: ['react', 'react-dom', 'antd'],
   utils: ['axios', 'moment', 'lodash'],
 }
@@ -38,5 +48,6 @@ module.exports = {
   entry,
   resolve,
   output,
+  module: webpackModule,
   plugins,
 };
