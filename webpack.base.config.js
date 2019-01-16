@@ -35,18 +35,7 @@ const webpackModule = {
   rules: [
     {
       test: /\.js[x]?$/,
-      include: [contentBase],
-      exclude: [path.resolve(__dirname, 'node_modules')],
-      use: [
-        'cache-loader',
-        {
-          loader: 'babel-loader?cacheDirectory=true',
-          options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime']
-          }
-        }
-      ]
+      use: ['cache-loader', 'babel-loader?cacheDirectory=true']
     },
     {
       test: /\.css$/,

@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prebuild": "rm -rf ./dist && mkdir -p ./dist/src/assets/dll/ && cp -rp ./src/assets/dll/ ./dist/src/assets/dll/",
-    "dev": "webpack-dev-server --config ./webpack.config.js",
     "devVue": "webpack-dev-server --config ./webpack.vue.dev.config.js",
     "devReact": "webpack-dev-server --config ./webpack.react.dev.config.js",
     "buildReact": "NODE_ENV=production webpack --config ./webpack.react.prod.config.js",
@@ -58,6 +57,7 @@
     "vue-loader": "^15.5.1",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.21",
+    "vux-loader": "^1.2.9",
     "webpack": "^4.28.1",
     "webpack-build-notifier": "^0.1.30",
     "webpack-bundle-analyzer": "^3.0.3",
@@ -83,6 +83,7 @@
     "vue": "^2.5.21",
     "vue-qrcode-component": "^2.1.1",
     "vue-router": "^3.0.2",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vux": "^2.9.2"
   }
 }

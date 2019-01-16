@@ -3,7 +3,6 @@ const webpackVueDevConfig = require('./webpack.vue.dev.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const merge = require('webpack-merge')
 
 const autoAddDllRes = () => {
@@ -23,7 +22,17 @@ const optimization = {
       include: __dirname + '/vue_src',
       exclude: /node_modules/,
       cache: true,
-      parallel: os.cpus().length,
+      parallel: os.cpus().length,  // 多线程
+      sourceMap: false,  // 关闭 sourceMap
+      uglifyOptions: {
+        compress: {
+          warnings: true,
+          drop_console: true // 删除 console
+        },
+        output: {
+          comments: false  // 删除注释
+        }
+      }
     }),
     new OptimizeCSSAssetsPlugin({})
   ]
