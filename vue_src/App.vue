@@ -1,13 +1,11 @@
 <template>
   <div class="app">
-    <h1>App</h1>
-    <router-link to="/body">Go to Body</router-link>
-    <router-link to="/main">Go to Main</router-link>
-    <router-view></router-view>
+      <router-link to="/body">Go to Body</router-link>
+      <router-link to="/main">Go to Main</router-link>
+      <router-view></router-view>
   </div>
 </template>
 <script>
-import _ from 'lodash';
 export default {
   components: {
   },
@@ -24,7 +22,7 @@ export default {
     let gender = {
       gender: '1'
     }
-    Object.assign
+    console.log('_.assign(name, gender)', _.assign(name, gender));
   },
   methods: {
     doMore () {

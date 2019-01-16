@@ -147,6 +147,11 @@ const plugins = [
     loaders: [ 'style-loader', 'css-loader', 'less-loader' ],
     threadPool: happyThreadPool,
     verbose: true
+  }),
+  // 全局注册, 不需要 import
+  new webpack.ProvidePlugin({
+    _ : 'lodash',
+    axios: 'axios'
   })
 ]
 

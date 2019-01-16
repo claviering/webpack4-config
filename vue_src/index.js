@@ -13,7 +13,6 @@ const MyMain = () => import('./MyMain');
 
 
 const routes = [
-  { path: '/', component: App },
   { path: '/main', component: MyMain },
   { path: '/body', component: Body }
 ]
