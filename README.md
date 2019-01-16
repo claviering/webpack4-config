@@ -85,19 +85,7 @@ const plugins = [
 
 #### vux 移动组件库
 
-注意 vux 版本问题, 版本不同可能会出问题, 用的是现在最新的
-`"vux": "^2.9.2"`
-`"vux-loader": "^1.2.9"`
-
-需要使用 vux-loader
-```js
-const vuxLoader = require('vux-loader')
-const webpackConfig = originalConfig // 原来的 module.exports 代码赋值给变量 webpackConfig
-
-module.exports = vuxLoader.merge(webpackConfig, {
-  plugins: ['vux-ui']
-})
-```
+webpack 4 不支持 vux 
 
 ### reactjs  repo
 `npm run devReact`
