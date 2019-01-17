@@ -122,6 +122,10 @@ new webpack.ProvidePlugin({
 })
 ```
 
+## 压缩 lodash
+
+插件`babel-plugin-lodash`, `lodash-webpack-plugin`
+
 ## 参考
 
 > [使用webpack4提升180%编译速度](https://juejin.im/entry/5c302140f265da611b587f99#%E5%BF%AB%E4%B8%8A%E8%BD%A6%EF%BC%8C%E5%8D%87%E7%BA%A7%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87)
