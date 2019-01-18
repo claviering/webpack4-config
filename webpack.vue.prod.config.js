@@ -3,6 +3,7 @@ const webpackVueDevConfig = require('./webpack.vue.dev.config');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge')
 
 const autoAddDllRes = () => {
@@ -38,6 +39,7 @@ const optimization = {
   ]
 }
 const plugins = [
+  new CleanWebpackPlugin('./dist'),
   // 压缩 html
   new HtmlWebpackPlugin({
     template: __dirname + '/vue_src/index.html',

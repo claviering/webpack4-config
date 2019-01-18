@@ -5,7 +5,6 @@
   "main": "webpack.base.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prebuild": "rm -rf ./dist && mkdir -p ./dist/src/assets/dll/ && cp -rp ./src/assets/dll/ ./dist/src/assets/dll/",
     "devVue": "webpack-dev-server --config ./webpack.vue.dev.config.js",
     "devReact": "webpack-dev-server --config ./webpack.react.dev.config.js",
     "buildReact": "NODE_ENV=production webpack --config ./webpack.react.prod.config.js",
