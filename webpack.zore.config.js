@@ -1,12 +1,9 @@
 const os = require('os');
-const path = require('path');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
@@ -14,10 +11,9 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const devMode = process.env.NODE_ENV !== 'production'
 
 // config
+const contentBase = __dirname + '/react_src'
 const entryIndex = __dirname + '/react_src/index.js'
-const contentBase = __dirname + '/react_src'  // 项目源代码目录
 const htmlTemplete = __dirname + '/react_src/index.html'
-const manifestReact = __dirname + '/src/assets/dll' + '/react-manifest.json'  // dll 打包文件名
 
 const output = {
   path:  __dirname + '/dist',
@@ -34,34 +30,22 @@ const resolve = {
 }
 
 const webpackModule = {
-  noParse: /jquery|lodash/,
   rules: [
     {
       test: /\.js[x]?$/,
-      include: [path.resolve(__dirname, 'react_src')],
-      exclude: [path.resolve(__dirname, 'node_modules')],
-      use: [
-        {
-          loader: 'babel-loader?cacheDirectory=true',
-          options: {
-            presets: ['@babel/preset-env'],
-            plugins: ['@babel/plugin-transform-runtime']
-          }
-        }
-      ]
+      use: ['cache-loader', 'babel-loader?cacheDirectory=true']
     },
     {
       test: /\.css$/,
-      use: ['style-loader', 'css-loader']
+      use: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
     },
     {
       test: /\.less$/,
-      use: ['style-loader', 'css-loader', 'less-loader']
+      use: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
       use: [
-        'cache-loader',
         {
           loader: 'url-loader',
           options: {
@@ -96,22 +80,74 @@ const webpackModule = {
 }
 
 const plugins = [
-  new webpack.DllReferencePlugin({
-    context: __dirname,
-    manifest: require('./src/assets/dll/react-manifest.json'),
-  }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
   new ProgressBarPlugin(),  // 打包进度
   new webpack.HotModuleReplacementPlugin(),  // 热加载
+  new MiniCssExtractPlugin({  // css 抽取打包压缩 只用在生产
+    filename: '[name].[hash:6].css',
+  }),
+  // 压缩css, 同时去除重复的样式，减少CSS打包后的体积
+  new OptimizeCssAssetsPlugin({
+    assetNameRegExp: /\.optimize\.css$/g,
+    cssProcessor: require('cssnano'),
+    cssProcessorPluginOptions: {
+      preset: ['default', { discardComments: { removeAll: true } }],
+    },
+    canPrint: true
+  }),
+  // 多线程打包
+  new ParallelUglifyPlugin({
+    cacheDir: '.cache/',
+    uglifyJS: {
+      output: {
+          comments: false,
+          beautify: false
+      },
+      compress: {
+          warnings: false,
+          drop_console: true,
+          collapse_vars: true,
+          reduce_vars: true
+      }
+    }
+  }),
+  // 多线程打包 js
+  new HappyPack({
+    id: 'js',
+    loaders: [{ loader: 'babel-loader', options: { babelrc: true, cacheDirectory: true }}],
+    threadPool: happyThreadPool,
+    verbose: true
+  }),
+  // 多线程打包 css
+  new HappyPack({
+    id: 'css',
+    loaders: [ 'style-loader', 'css-loader', 'less-loader' ],
+    threadPool: happyThreadPool,
+    verbose: true
+  })
 ]
 
 const devServer = {
+  compress: true,
+  watchContentBase: true,
+  progress: true,
   open: false,
   hot: true,
+  disableHostCheck: true,
   host: 'localhost',
   port: 9020,
+  historyApiFallback: false,
+  proxy: {
+    '/api': {
+      target: 'http://localhost:6000',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api': '/api'
+      }
+    }
+  }
 }
 
 module.exports = {
@@ -121,5 +157,5 @@ module.exports = {
   resolve,
   module: webpackModule,
   plugins,
-  devServer
+  devServer,
 }
