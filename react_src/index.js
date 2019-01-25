@@ -37,7 +37,10 @@ class AchieveProperty extends React.Component {
 
 const Index = () => {
   return <div>
-    <div className="center" style={{"color": "yellow"}}>Hello React First!</div>
+    <div className="center" style={{"color": "yellow"}}>
+      <div className="title1">title1</div>
+      <div className="title2">title2</div>
+    </div>
     <Row>
       <Col span={12}>
         <Button type="danger">Primary 2</Button>

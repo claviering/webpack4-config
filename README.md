@@ -22,12 +22,6 @@ node v10
 
 `npm run dll`
 
-需要手动添加 dll.js 到 index.html
-
-```html
-<script src="../src/assets/dll/react-153070.dll.js" charset="utf-8"></script>
-<script src="../src/assets/dll/utils-153070.dll.js" charset="utf-8"></script>
-```
 ## 配置
 
 删除 .babelrc 使用 babel.config.js
@@ -36,8 +30,8 @@ node v10
 ```js
 module.exports = {
   presets: ['@babel/preset-env', '@babel/preset-react'],
-  plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-syntax-dynamic-import']
-};
+  plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-transform-runtime']
+}
 ```
 项目根目录 postcss.config.js
 ```js
@@ -100,6 +94,14 @@ new webpack.DllReferencePlugin({
 ```
 
 index.html 引入 react*.dll.js
+
+## antd
+
+看官网使用
+
+babel 添加配置
+
+手动引入 css 或者 less
 
 ## 部署
 vuejs  

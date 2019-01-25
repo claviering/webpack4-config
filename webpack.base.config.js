@@ -1,10 +1,8 @@
 const os = require('os');
-const path = require('path');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
@@ -12,10 +10,10 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const devMode = process.env.NODE_ENV === 'development'
 
 // config
-const repo = 'vue'
-const contentBase = __dirname + '/vue_src'
-const entryIndex = __dirname + '/vue_src/index.js'
-const htmlTemplete = __dirname + '/vue_src/index.html'
+const repo = 'react'
+const contentBase = __dirname + '/react_src'
+const entryIndex = __dirname + '/react_src/index.js'
+const htmlTemplete = __dirname + '/react_src/index.html'
 
 const output = {
   path:  __dirname + '/dist',
@@ -97,15 +95,7 @@ const plugins = [
   new webpack.HotModuleReplacementPlugin(),  // 热加载
   new MiniCssExtractPlugin({  // css 抽取打包压缩 只用在生产
     filename: '[name].[hash:6].css',
-  }),
-  // 压缩css, 同时去除重复的样式，减少CSS打包后的体积
-  new OptimizeCssAssetsPlugin({
-    assetNameRegExp: /\.optimize\.css$/g,
-    cssProcessor: require('cssnano'),
-    cssProcessorPluginOptions: {
-      preset: ['default', { discardComments: { removeAll: true } }],
-    },
-    canPrint: true
+    chunkFilename: '[id].[hash:6].css'
   }),
   // 多线程打包
   new ParallelUglifyPlugin({
@@ -133,7 +123,7 @@ const plugins = [
   // 多线程打包 css
   new HappyPack({
     id: 'css',
-    loaders: [ 'style-loader', 'css-loader', 'less-loader' ],
+    loaders: [ devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader' ],
     threadPool: happyThreadPool,
     verbose: true
   }),
@@ -167,7 +157,7 @@ const devServer = {
 
 const optimization = {
   splitChunks: {
-    chunks: 'async',
+    chunks: 'all',
     minSize: 30000,
     maxSize: 0,
     minChunks: 1,

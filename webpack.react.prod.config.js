@@ -1,9 +1,10 @@
 const os = require('os');
-const webpackReactDevConfig = require('./webpack.react.dev.config');
+const merge = require('webpack-merge')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const webpackReactDevConfig = require('./webpack.react.dev.config');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const merge = require('webpack-merge')
 
 const autoAddDllRes = () => {
   const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
@@ -23,11 +24,34 @@ const optimization = {
       exclude: /node_modules/,
       cache: true,
       parallel: os.cpus().length,
+      sourceMap: false,  // 关闭 sourceMap
+      uglifyOptions: {
+        compress: {
+          warnings: true,
+          drop_console: true // 删除 console
+        },
+        output: {
+          comments: false  // 删除注释
+        }
+      }
     }),
     new OptimizeCSSAssetsPlugin({})
-  ]
+  ],
+  splitChunks: {
+    cacheGroups: {
+      styles: {
+        name: 'styles',
+        test: /\.css$/,
+        chunks: 'all',
+        enforce: true
+      }
+    }
+  }
 }
 const plugins = [
+  new CleanWebpackPlugin(['*'], {
+    root: __dirname + '/dist',
+  }),
   // 压缩 html
   new HtmlWebpackPlugin({
     template: __dirname + '/react_src/index.html',
