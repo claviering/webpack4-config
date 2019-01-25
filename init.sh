@@ -32,7 +32,6 @@ npm i -D @babel/runtime
 npm s -D html-webpack-plugin
 npm i -D mini-css-extract-plugin
 npm i -D webpack-bundle-analyzer
-npm i -D speed-measure-webpack-plugin
 npm i -D progress-bar-webpack-plugin
 npm i -D webpack-dashboard
 npm i -D optimize-css-assets-webpack-plugin
