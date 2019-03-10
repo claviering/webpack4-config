@@ -1,6 +1,6 @@
-const DashboardPlugin = require('webpack-dashboard/plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const webpackReactProdConfig = require('./webpack.react.prod.config');
+const DashboardPlugin = require('webpack-dashboard/plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const webpackReactProdConfig = require('./webpack.react.prod.config')
 const merge = require('webpack-merge')
 
 const plugins = [
@@ -17,8 +17,10 @@ const webpackAnalyzeConfig = {
   plugins
 }
 
-module.exports = merge(webpackReactProdConfig, webpackAnalyzeConfig)
-// for vue repo
-// const webpackVueProdConfig = require('./webpack.vue.prod.config');
-// module.exports = merge(webpackBaseConfig, webpackVueProdConfig, webpackAnalyzeConfig)
+if (process.env.REPO === 'vue') {
+  const webpackVueProdConfig = require('./webpack.vue.prod.config')
+  module.exports = merge(webpackBaseConfig, webpackVueProdConfig, webpackAnalyzeConfig)
+} else {
+  module.exports = merge(webpackReactProdConfig, webpackAnalyzeConfig)
+}
 

@@ -7,7 +7,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
-const vuxLoader = require('vux-loader')
 
 const dllPath = __dirname + '/src/assets/dll'
 
@@ -112,6 +111,7 @@ const plugins = [
   })
 ]
 
+// 打包成 dll 的文件
 const entry = {
   vue: ['vue', 'vue-router', 'vuex', 'element-ui', 'vue-qrcode-component'],
   react: ['react', 'react-dom', 'antd'],

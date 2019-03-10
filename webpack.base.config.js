@@ -9,11 +9,11 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 const devMode = process.env.NODE_ENV === 'development'
 
-// config
-const repo = 'react'
-const contentBase = __dirname + '/react_src'
-const entryIndex = __dirname + '/react_src/index.js'
-const htmlTemplete = __dirname + '/react_src/index.html'
+// config 默认编译 react 项目
+const repo = process.env.REPO || 'react'
+const contentBase = __dirname + `/${repo}_src`
+const entryIndex = __dirname + `/${repo}_src/index.js`
+const htmlTemplete = __dirname + `/${repo}_src/index.html`
 
 const output = {
   path:  __dirname + '/dist',

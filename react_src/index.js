@@ -1,57 +1,59 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Button, Row, Col } from 'antd';
-import 'antd/dist/antd.min.css'
-import './index.less'
-import ReactEcharts from 'echarts-for-react';
+import React from 'react';
+import { createBrowserHistory } from 'history';
+import { applyMiddleware, compose, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
+import ReactDOM from 'react-dom';
+import App from './app';
+import rootReducer from './reducers';
+import routes from './routes';
+import './css/main.css';
 
-class AchieveProperty extends React.Component {
-  state = {
-    name: 'you name'
-  }
-  getOption = () => {
-    let option = {
-      xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-          type: 'value'
-      },
-      series: [{
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
-          type: 'line'
-      }]
-    };
-    return option
-  }
-  render () {
-    return <div>
-      {this.state.name}
-      <div id="main"></div>
-      <Button type="danger">Primary</Button>
-      <ReactEcharts option={this.getOption()} />
-    </div>
-  }
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+//       console.log('SW registered: ', registration);
+//     }).catch((registrationError) => {
+//       console.log('SW registration failed: ', registrationError);
+//     });
+//   });
+// }
+
+const history = createBrowserHistory();
+const initialState = {};
+const middleware = [];
+// if (process.env.NODE_ENV !== 'production') {
+//   middleware.push(createLogger());
+// }
+
+// middleware.push(routerMiddleware(history));
+// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(
+//   connectRouter(history)(rootReducer),
+//   initialState,
+//   composeEnhancer(applyMiddleware(...middleware)),
+// );
+
+const render = () => {
+  ReactDOM.render(routes, document.getElementById('app'))
 }
 
-const Index = () => {
-  return <div>
-    <div className="center" style={{"color": "yellow"}}>
-      <div className="title1">title1</div>
-      <div className="title2">title2</div>
-    </div>
-    <Row>
-      <Col span={12}>
-        <Button type="danger">Primary 2</Button>
-      </Col>
-      <Col span={12}>
-        <Button type="danger">Primary</Button>
-      </Col>
-    </Row>
-    <img src={require('./1.jpeg')} />
-    <AchieveProperty></AchieveProperty>
-  </div>;
-};
+render()
 
-ReactDOM.render(<Index />, document.getElementById("index"));
+// if (module.hot) {
+//   module.hot.addStatusHandler((status) => {
+//     console.log('status = ', status);
+//   });
+
+//   module.hot.accept('./App', () => {
+//     // 这里是当前版本很重要的环节，不然的话react-hot-reload不起作用
+//     require('./App').default;
+//     render();
+//   });
+
+//   module.hot.accept('./reducers', () => {
+//     store.replaceReducer(connectRouter(history)(rootReducer));
+//     render();
+//   });
+// }
