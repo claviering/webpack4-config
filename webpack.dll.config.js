@@ -113,8 +113,8 @@ const plugins = [
 
 // 打包成 dll 的文件
 const entry = {
-  vue: ['vue', 'vue-router', 'vuex', 'element-ui', 'vue-qrcode-component'],
-  react: ['react', 'react-dom', 'antd'],
+  vue: ['vue', 'vue-router', 'vuex', 'vue-qrcode-component'],
+  react: ['react', 'react-dom'],
   utils: ['axios', 'moment', 'lodash'],
 }
 
