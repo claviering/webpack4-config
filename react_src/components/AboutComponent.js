@@ -2,6 +2,9 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Route, Link as ALink } from 'react-router-dom';
 import RoleComponent from './RoleComponent';
+import { DatePicker } from 'antd';
+import moment from  'moment';
+const dateFormat = 'YYYY-MM-DD';
 
 class AboutComponent extends React.Component {
   constructor(props, context) {
@@ -18,7 +21,11 @@ class AboutComponent extends React.Component {
     return (
       <div>
         <h2>About</h2>
-
+        <DatePicker renderExtraFooter={() => 'extra footer'} showTime />
+        {/* <RangePicker
+          defaultValue={[moment('2015-06-06', dateFormat), moment('2015-06-06', dateFormat)]}
+          disabled
+        /> */}
         <ul>
           <li>
             <ALink to={`${match.url}/you`}>你</ALink>

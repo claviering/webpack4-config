@@ -9,6 +9,7 @@ import App from './app';
 import rootReducer from './reducers';
 import routes from './routes';
 import './css/main.css';
+import "antd/dist/antd.css";
 
 // if ('serviceWorker' in navigator) {
 //   window.addEventListener('load', () => {

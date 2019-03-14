@@ -138,7 +138,7 @@ const devServer = {
   compress: true,
   watchContentBase: true,
   progress: true,
-  open: false,
+  open: true,
   hot: true,
   disableHostCheck: true,
   host: 'localhost',
