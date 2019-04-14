@@ -8,7 +8,7 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
-const dllPath = __dirname + '/src/assets/dll'
+const dllPath = __dirname + '/src/dll'
 
 const resolve = {
   extensions: ['.js', '.jsx', '.vue', '.less', 'json'],
@@ -27,11 +27,11 @@ const webpackModule = {
     },
     {
       test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+      use: ['css-loader', 'postcss-loader']
     },
     {
       test: /\.less$/,
-      use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+      use: ['css-loader', 'postcss-loader', 'less-loader']
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -77,7 +77,7 @@ const plugins = [
   }),
   new webpack.DllPlugin({
     name: '[name]_[hash:6]_dll',
-    path: __dirname + '/src/assets/dll' + '/[name]-manifest.json'
+    path: dllPath + '/[name]-manifest.json'
   }),
   // 多线程打包
   new ParallelUglifyPlugin({
@@ -113,9 +113,7 @@ const plugins = [
 
 // 打包成 dll 的文件
 const entry = {
-  vue: ['vue', 'vue-router', 'vuex', 'vue-qrcode-component'],
-  react: ['react', 'react-dom'],
-  utils: ['axios', 'moment', 'lodash'],
+  vue: ['vue', 'vue-router']
 }
 
 const output = {

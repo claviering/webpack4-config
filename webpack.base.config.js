@@ -2,6 +2,7 @@ const os = require('os');
 const webpack = require('webpack');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HappyPack = require('happypack');
@@ -10,10 +11,9 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const devMode = process.env.NODE_ENV === 'development'
 
 // config 默认编译 react 项目
-const repo = process.env.REPO || 'react'
-const contentBase = __dirname + `/${repo}_src`
-const entryIndex = __dirname + `/${repo}_src/index.js`
-const htmlTemplete = __dirname + `/${repo}_src/index.html`
+const contentBase = __dirname + `/src`
+const entryIndex = __dirname + `/src/index.js`
+const htmlTemplete = __dirname + `/src/index.html`
 
 const output = {
   path:  __dirname + '/dist',
@@ -23,7 +23,7 @@ const output = {
 
 const resolve = {
   extensions: ['.js', '.jsx', '.vue', '.less'],
-  modules: ['node_modules'],
+  // modules: ['node_modules'],
   alias: {
     '@': contentBase
   }
@@ -37,11 +37,11 @@ const webpackModule = {
     },
     {
       test: /\.css$/,
-      use: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+      use: ['style-loader', 'css-loader']
     },
     {
       test: /\.less$/,
-      use: [devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+      use: ['style-loader', 'css-loader', 'less-loader']
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -75,63 +75,64 @@ const webpackModule = {
           minimize: true
         }
       }]
+    },
+    {
+      test: /\.vue$/,
+      use: ['cache-loader','vue-loader']
     }
   ]
 }
 
 const plugins = [
-  new webpack.DllReferencePlugin({
-    context: __dirname,
-    manifest: require(`./src/assets/dll/${repo}-manifest.json`),
-  }),
-  new webpack.DllReferencePlugin({
-    context: __dirname,
-    manifest: require(`./src/assets/dll/utils-manifest.json`),
-  }),
+  new VueLoaderPlugin(),
+  // new webpack.DllReferencePlugin({
+  //   context: __dirname,
+  //   manifest: require(`./src/dll/vue-manifest.json`),
+  // }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
   new ProgressBarPlugin(),  // 打包进度
   new webpack.HotModuleReplacementPlugin(),  // 热加载
-  new MiniCssExtractPlugin({  // css 抽取打包压缩 只用在生产
-    filename: '[name].[hash:6].css',
-    chunkFilename: '[id].[hash:6].css'
-  }),
+  // new MiniCssExtractPlugin({  // css 抽取打包压缩 只用在生产
+  //   filename: '[name].[hash:6].css',
+  //   chunkFilename: '[id].[hash:6].css'
+  // }),
   // 多线程打包
-  new ParallelUglifyPlugin({
-    cacheDir: '.cache/',
-    uglifyJS: {
-      output: {
-          comments: false,
-          beautify: false
-      },
-      compress: {
-          warnings: false,
-          drop_console: true,
-          collapse_vars: true,
-          reduce_vars: true
-      }
-    }
-  }),
+  // new ParallelUglifyPlugin({
+  //   cacheDir: '.cache/',
+  //   uglifyJS: {
+  //     output: {
+  //         comments: false,
+  //         beautify: false
+  //     },
+  //     compress: {
+  //         warnings: false,
+  //         drop_console: true,
+  //         collapse_vars: true,
+  //         reduce_vars: true
+  //     }
+  //   }
+  // }),
   // 多线程打包 js
-  new HappyPack({
-    id: 'js',
-    loaders: [{ loader: 'babel-loader', options: { babelrc: true, cacheDirectory: true }}],
-    threadPool: happyThreadPool,
-    verbose: true
-  }),
+  // new HappyPack({
+  //   id: 'js',
+  //   loaders: [{ loader: 'babel-loader', options: { babelrc: true, cacheDirectory: true }}],
+  //   threadPool: happyThreadPool,
+  //   verbose: true
+  // }),
   // 多线程打包 css
-  new HappyPack({
-    id: 'css',
-    loaders: [ devMode ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader' ],
-    threadPool: happyThreadPool,
-    verbose: true
-  }),
+  // new HappyPack({
+  //   id: 'css',
+  //   loaders: [ 'style-loader', 'css-loader', 'postcss-loader', 'less-loader' ],
+  //   threadPool: happyThreadPool,
+  //   verbose: true
+  // }),
   // 全局注册, 不需要 import
-  new webpack.ProvidePlugin({
-    _ : 'lodash',
-    axios: 'axios'
-  })
+  // new webpack.ProvidePlugin({
+  //   _ : 'lodash',
+  //   axios: 'axios'
+  // })
 ]
 
 const devServer = {
@@ -142,7 +143,7 @@ const devServer = {
   hot: true,
   disableHostCheck: true,
   host: 'localhost',
-  port: 9020,
+  port: 9030,
   historyApiFallback: false,
   proxy: {
     '/api': {

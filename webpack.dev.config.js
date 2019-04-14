@@ -6,7 +6,7 @@ const autoAddDllRes = () => {
   const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
   return new AddAssetHtmlPlugin([{ // 往html中注入dll js
       // publicPath: './dist/dll/', // 注入到html文件中 src 的路径
-      filepath: './src/assets/dll/*.js', // dll.js 来源目录
+      filepath: './src/dll/*.js', // dll.js 来源目录
       typeOfAsset: 'js' // options js、css; default js
   }]);
 };
@@ -22,7 +22,7 @@ const webpackModule = {
 
 const plugins = [
   new VueLoaderPlugin(),
-  autoAddDllRes()
+  // autoAddDllRes()
 ]
 
 const webpackVueDevConfig = {
