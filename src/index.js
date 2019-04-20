@@ -1,32 +1,21 @@
 import "@babel/polyfill"
 import Vue from 'vue'
-// import VueRouter from 'vue-router'
-// import ElementUI from 'element-ui';
-// import 'element-ui/lib/theme-chalk/index.css';
+import VueRouter from 'vue-router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+import routes from './router'
+import App from './App'
 
-// Vue.use(ElementUI)
-// Vue.use(VueRouter)
+Vue.use(ElementUI)
+Vue.use(VueRouter)
 
-import App from './App';
-// import Body from './Body';
-// import Main from './Main';
-// const Body = () => import('./Body');
-// const Main = () => import('./Main');
-
-
-
-// const routes = [
-//   { path: '/main', component: Main },
-//   { path: '/body', component: Body }
-// ]
-
-// const router = new VueRouter({
-//   mode: 'hash',
-//   routes
-// })
+const router = new VueRouter({
+  mode: 'hash',
+  routes
+})
 
 new Vue({
   el: '#app',
-  // router,
+  router,
   render: h => h(App)
 })

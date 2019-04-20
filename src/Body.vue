@@ -1,11 +1,11 @@
 <template>
   <div class="app">
     <h1>Body</h1>
+    <img src="./1.jpeg" alt="">
     <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
   </div>
 </template>
 <script>
-import _ from "lodash";
 export default {
   components: {},
   data() {
@@ -77,17 +77,29 @@ export default {
   },
   mounted() {
     let name = {
-      name: "name"
+      name: "your name"
     };
     let gender = {
       gender: "1"
     };
-    Object.assign;
+    console.log('_测试', _.get(name, 'name'))
+    this.tmp()
   },
   methods: {
     doMore() {
       console.log("doMore");
-      this.$router.push("/MyMain");
+    },
+    promise1() {
+      return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+          resolve('foo');
+        }, 20000);
+      });
+    },
+    async tmp() {
+      console.log('time start')
+      await this.promise1()
+      console.log('time end')
     },
     handleNodeClick(data) {
       console.log(data);

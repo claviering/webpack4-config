@@ -1,16 +1,15 @@
-const os = require('os');
-const webpack = require('webpack');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HappyPack = require('happypack');
+const os = require('os')
+const webpack = require('webpack')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HappyPack = require('happypack')
 const happyThreadPool = HappyPack.ThreadPool({
   size: os.cpus().length
 });
-
-const devMode = process.env.NODE_ENV === 'development'
 
 // config 默认编译 react 项目
 const contentBase = __dirname + `/src`
@@ -24,7 +23,7 @@ const output = {
 }
 
 const resolve = {
-  extensions: ['.js', '.jsx', '.vue', '.less'], // 忽略文件后缀
+  extensions: ['.vue', '.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
   modules: ['node_modules'], // 指定包的目录
   alias: {
     '@': contentBase // 文件目录缩写
@@ -38,11 +37,11 @@ const webpackModule = {
     },
     {
       test: /\.css$/,
-      use: ['style-loader', 'css-loader']
+      use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
     },
     {
       test: /\.less$/,
-      use: ['style-loader', 'css-loader', 'less-loader']
+      use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
     },
     {
       test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -82,10 +81,10 @@ const webpackModule = {
 
 const plugins = [
   new VueLoaderPlugin(),
-  new webpack.DllReferencePlugin({
-    context: __dirname,
-    manifest: require(`./src/dll/vue-manifest.json`),
-  }),
+  // new webpack.DllReferencePlugin({
+  //   context: __dirname,
+  //   manifest: require(`./src/dll/vue-manifest.json`),
+  // }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
@@ -95,26 +94,26 @@ const plugins = [
     chunkFilename: '[id].[hash:6].css'
   }),
   // 多线程打包 js
-  new HappyPack({
-    id: 'js',
-    loaders: ['babel-loader'],
-    threadPool: happyThreadPool,
-    verbose: true
-  }),
+  // new HappyPack({
+  //   id: 'js',
+  //   loaders: ['babel-loader'],
+  //   threadPool: happyThreadPool,
+  //   verbose: true
+  // }),
   // 多线程打包 css
-  new HappyPack({
-    id: 'css',
-    loaders: ['style-loader', 'css-loader'],
-    threadPool: happyThreadPool,
-    verbose: true
-  }),
+  // new HappyPack({
+  //   id: 'css',
+  //   loaders: ['style-loader', 'MiniCssExtractPlugin.loader'],
+  //   threadPool: happyThreadPool,
+  //   verbose: true
+  // }),
   // 多线程打包 less
-  new HappyPack({
-    id: 'css',
-    loaders: ['style-loader', 'css-loader', 'less-loader'],
-    threadPool: happyThreadPool,
-    verbose: true
-  }),
+  // new HappyPack({
+  //   id: 'css',
+  //   loaders: ['style-loader', 'MiniCssExtractPlugin.loader', 'less-loader'],
+  //   threadPool: happyThreadPool,
+  //   verbose: true
+  // }),
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
     _: 'lodash',
@@ -122,26 +121,6 @@ const plugins = [
   })
 ]
 
-const devServer = {
-  compress: true,
-  watchContentBase: true,
-  progress: true,
-  open: true,
-  hot: true,
-  disableHostCheck: true,
-  host: 'localhost',
-  port: 9030,
-  historyApiFallback: false,
-  proxy: {
-    '/api': {
-      target: 'http://localhost:6000',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': '/api'
-      }
-    }
-  }
-}
 
 const optimization = {
   splitChunks: {
@@ -164,16 +143,24 @@ const optimization = {
         reuseExistingChunk: true
       }
     }
-  }
+  },
+  minimizer: [new OptimizeCSSAssetsPlugin({}), new UglifyJsPlugin({
+    uglifyOptions: {
+      output: {
+        comments: false // 删除注释
+      }
+    },
+    cache: true, // 开启缓存
+    parallel: true // 多线程压缩 默认值 os.cpus().length - 1
+  })] // 压缩 CSS
 }
 
 module.exports = {
-  mode: 'development', // 打包模式 development || production
+  mode: 'production', // 打包模式 development || production
   entry: entryIndex, // 入口文件
   output, // 打包输出文件目录
   resolve,
   module: webpackModule,
   plugins,
-  devServer,
   optimization
 }
