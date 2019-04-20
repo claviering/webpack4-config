@@ -2,7 +2,7 @@
   <div class="app">
     <h1>app app</h1>
     <h1>app</h1>
-    <router-link to="/main">
+    <router-link to="/">
       <h1>main</h1>
     </router-link>
     <router-link to="/body">

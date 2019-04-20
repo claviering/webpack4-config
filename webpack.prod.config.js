@@ -1,4 +1,3 @@
-const os = require('os')
 const webpack = require('webpack')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -6,10 +5,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const HappyPack = require('happypack')
-const happyThreadPool = HappyPack.ThreadPool({
-  size: os.cpus().length
-});
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 // config 默认编译 react 项目
 const contentBase = __dirname + `/src`
@@ -81,10 +77,6 @@ const webpackModule = {
 
 const plugins = [
   new VueLoaderPlugin(),
-  // new webpack.DllReferencePlugin({
-  //   context: __dirname,
-  //   manifest: require(`./src/dll/vue-manifest.json`),
-  // }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
@@ -93,32 +85,12 @@ const plugins = [
     filename: '[name].[hash:6].css',
     chunkFilename: '[id].[hash:6].css'
   }),
-  // 多线程打包 js
-  // new HappyPack({
-  //   id: 'js',
-  //   loaders: ['babel-loader'],
-  //   threadPool: happyThreadPool,
-  //   verbose: true
-  // }),
-  // 多线程打包 css
-  // new HappyPack({
-  //   id: 'css',
-  //   loaders: ['style-loader', 'MiniCssExtractPlugin.loader'],
-  //   threadPool: happyThreadPool,
-  //   verbose: true
-  // }),
-  // 多线程打包 less
-  // new HappyPack({
-  //   id: 'css',
-  //   loaders: ['style-loader', 'MiniCssExtractPlugin.loader', 'less-loader'],
-  //   threadPool: happyThreadPool,
-  //   verbose: true
-  // }),
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
     _: 'lodash',
     axios: 'axios'
-  })
+  }),
+  new CleanWebpackPlugin()
 ]
 
 
