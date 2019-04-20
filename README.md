@@ -1,30 +1,31 @@
 # webpack 4
 
-配置 demo
-
-入口文件  
-`__dirname + './src/index.js'`
-
-输出文件夹  
-`__dirname + '/dist'`
-
-模板文件  
- `__dirname + './index.html',`
-
-
 node v10
 
-## 初始化
+Webpack 4 + Vuejs 2.x 配置 demo
 
-`chmod +x init.sh && ./init.sh`
+- 入口文件 `/src/index.js'`
+- 输出文件夹 `/dist`
+- 模板文件 `/src/index.html'`
+
 
 ## 第一次启动
 
 `npm run dll`
 
-## 配置
+## 开发
 
-删除 .babelrc 使用 babel.config.js
+`npm run dev`
+
+## 部署
+
+`npm run build`
+
+## 分析
+
+`npm run analyze`
+
+## 配置
 
 项目根目录 babel.config.js
 ```js
@@ -42,8 +43,6 @@ module.exports = {
 }
 ```
 
-## 开发
-
 ### vuejs  repo
 `npm run devVeu`
 
@@ -58,61 +57,10 @@ index.html 引入 vue*.dll.js
 
 `vue-style-loader` 不需要, 默认在 `vue-loader` 中使用
 
-#### vue-loader v15
-
-需要搭配插件使用
-
-```js
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const webpackModule = {
-  rules: [
-    {
-      test: /\.vue$/,
-      use: ['cache-loader','vue-loader']
-    }
-  ]
-}
-const plugins = [
-  new VueLoaderPlugin()
-]
-```
 
 #### vux 移动组件库
 
-webpack 4 不支持 vux 
-
-### reactjs  repo
-`npm run devReact`
-
-dll 插件
-
-```js
-new webpack.DllReferencePlugin({
-  context: __dirname,
-  manifest: require('./src/assets/dll/react-manifest.json'),
-}),
-```
-
-index.html 引入 react*.dll.js
-
-## antd
-
-看官网使用
-
-babel 添加配置
-
-手动引入 css 或者 less
-
-## 部署
-vuejs  
-`npm run buildVue`
-
-reactjs  
-`npm run buildReact`
-
-## 分析
-
-`npm run analyze`
+webpack 4 不支持 vux 2.x 版本
 
 
 ## 全局注册
@@ -124,9 +72,11 @@ new webpack.ProvidePlugin({
 })
 ```
 
-## 压缩 lodash
+## Webpack 打包流程图
 
-插件`babel-plugin-lodash`, `lodash-webpack-plugin`
+![打包流程图](./webpack.png)
+
+[图片来源](https://juejin.im/post/5c6b78cdf265da2da15db125)
 
 ## 参考
 
