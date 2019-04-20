@@ -1,11 +1,11 @@
 const webpack = require('webpack')
-const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 // config 默认编译 react 项目
 const contentBase = __dirname + `/src`
@@ -87,7 +87,6 @@ const plugins = [
   }),
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
-    _: 'lodash',
     axios: 'axios'
   }),
   new CleanWebpackPlugin()

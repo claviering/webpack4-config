@@ -1,5 +1,5 @@
-const Body = () => import('./Body')
-const Main = () => import('./Main')
+const Body = () => import('@/components/Body')
+const Main = () => import('@/components/Main')
 
 export default [
   { path: '/', component: Main },

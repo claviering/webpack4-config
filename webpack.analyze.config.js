@@ -1,8 +1,7 @@
+const merge = require('webpack-merge')
+const webpackProdConfig = require('./webpack.prod.config')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const webpackBaseConfig = require('./webpack.base.config')
-const webpackProdConfig = require('./webpack.prod.config')
-const merge = require('webpack-merge')
 
 const plugins = [
   new DashboardPlugin(),  // 打包结果分析 控制台版
@@ -18,4 +17,4 @@ const webpackAnalyzeConfig = {
   plugins
 }
 
-module.exports = merge(webpackBaseConfig, webpackProdConfig, webpackAnalyzeConfig)
+module.exports = merge(webpackProdConfig, webpackAnalyzeConfig)

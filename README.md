@@ -8,11 +8,6 @@ Webpack 4 + Vuejs 2.x 配置 demo
 - 输出文件夹 `/dist`
 - 模板文件 `/src/index.html'`
 
-
-## 第一次启动
-
-`npm run dll`
-
 ## 开发
 
 `npm run dev`
@@ -24,6 +19,21 @@ Webpack 4 + Vuejs 2.x 配置 demo
 ## 分析
 
 `npm run analyze`
+
+## Tree Shaking
+
+项目 package.json 配置 `"sideEffects": false` 告诉 webpack 可以安全的 Shaking 没有副作用的代码，删除没有使用到的 exports 代码
+
+> 副作用定义: 在 import 时候执行的代码具有副作用
+
+使用数组排除副作用代码
+
+```js
+"sideEffects": [
+    "./src/some-side-effectful-file.js",
+    "*.css"
+  ]
+```
 
 ## 配置
 

@@ -1,11 +1,12 @@
 <template>
-  <div class="app">
+  <div class="body">
     <h1>Body</h1>
     <img src="./1.jpeg" alt="">
     <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
   </div>
 </template>
 <script>
+import {get} from 'lodash';
 export default {
   components: {},
   data() {
@@ -82,7 +83,7 @@ export default {
     let gender = {
       gender: "1"
     };
-    console.log('_测试', _.get(name, 'name'))
+    console.log('_测试', get(name, 'name'))
     this.tmp()
   },
   methods: {
@@ -93,13 +94,15 @@ export default {
       return new Promise(function(resolve, reject) {
         setTimeout(function() {
           resolve('foo');
-        }, 20000);
+        }, 3000);
       });
     },
     async tmp() {
       console.log('time start')
+      let start = Date.now()
       await this.promise1()
-      console.log('time end')
+      let end = (Date.now() - start) / 1000
+      console.log('time end', end)
     },
     handleNodeClick(data) {
       console.log(data);
@@ -108,7 +111,23 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.app {
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 200px;
+    height: 200px;
+  }
+  h1 {
+    background-color: yellow;
+    color: #fff;
+    border-radius: 10px;
+    text-align: center;
+  }
+}
+.css-shaking {
   display: flex;
   flex-direction: column;
   justify-content: center;

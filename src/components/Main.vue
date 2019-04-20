@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import _ from 'lodash';
+import {cube, square} from '@/utils/math'
 export default {
   components: {
   },
@@ -14,13 +14,8 @@ export default {
     }
   },
   mounted () {
-    let name = {
-      name: 'name'
-    }
-    let gender = {
-      gender: '1'
-    }
-    Object.assign
+    // tree shaking square 没有引入或者函数引入没使用，都会被 shaking
+    console.log(cube(2))
   }
 }
 </script>
