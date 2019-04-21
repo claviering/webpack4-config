@@ -73,10 +73,6 @@ const webpackModule = {
 
 const plugins = [
   new VueLoaderPlugin(),
-  // new webpack.DllReferencePlugin({
-  //   context: __dirname,
-  //   manifest: require(`./src/dll/vue-manifest.json`),
-  // }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
