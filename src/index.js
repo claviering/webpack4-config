@@ -2,6 +2,7 @@ import "@babel/polyfill" // 必需放最上面
 import './index.less'
 import Vue from 'vue'
 import App from './App'
+import stores from './store'
 import routes from './router'
 import element from './element'
 import VueRouter from 'vue-router'
@@ -14,8 +15,11 @@ const router = new VueRouter({
   routes
 })
 
+const store = stores(Vue)
+
 new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

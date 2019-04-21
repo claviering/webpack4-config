@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import {cube, square} from '@/utils/math'
+import {cube, square} from '@/utils/math' // tree shaking test
 export default {
   components: {
   },
@@ -17,6 +17,8 @@ export default {
   mounted () {
     // tree shaking square 没有引入或者函数引入没使用，都会被 shaking
     console.log(cube(2))
+    this.$store.commit('increment')
+    console.log(this.$store.state.count)
   }
 }
 </script>
