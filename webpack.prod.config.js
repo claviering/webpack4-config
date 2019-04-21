@@ -90,7 +90,7 @@ const plugins = [
   new ProgressBarPlugin(), // 打包进度
   new MiniCssExtractPlugin({ // css 抽取打包压缩 只用在生产
     filename: '[name].[hash:6].css',
-    chunkFilename: '[id].[hash:6].css'
+    // chunkFilename: '[id].[hash:6].css'
   }),
   new PurgecssPlugin({
     paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
@@ -122,6 +122,12 @@ const optimization = {
         minChunks: 2,
         priority: -20,
         reuseExistingChunk: true
+      },
+      style: {
+        name: 'styles',
+        test: /\.css$/,
+        chunks: 'all',
+        enforce: true,
       }
     }
   },

@@ -90,4 +90,6 @@ new webpack.ProvidePlugin({
 
 ## TODO
 
-- [ ] CSS Tree Shaking
+CSS Tree Shaking 只能在外部引入的 *.less *.css 有效
+
+- [ ] CSS Tree Shaking in *.vue

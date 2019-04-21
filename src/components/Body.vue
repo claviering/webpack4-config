@@ -110,7 +110,7 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .body {
   display: flex;
   flex-direction: column;

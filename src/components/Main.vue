@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <h1>Main</h1>
+    <input type="text" placeholder="placeholder"/>
   </div>
 </template>
 <script>
@@ -25,6 +26,15 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  display: grid;
+  transition: all .5s;
+  user-select: none;
+  background: linear-gradient(to bottom, white, black);
+  input{
+    &::placeholder {
+      color: red;
+    }
+  }
   img{
     width: 200px;
     height: 200px;
