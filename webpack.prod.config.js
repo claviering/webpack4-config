@@ -1,7 +1,10 @@
+const glob = require('glob')
+const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const PurgecssPlugin = require('purgecss-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
@@ -24,6 +27,10 @@ const resolve = {
   alias: {
     '@': contentBase // 文件目录缩写
   }
+}
+
+const PATHS = {
+  src: path.join(__dirname, 'src')
 }
 
 const webpackModule = {
@@ -84,6 +91,9 @@ const plugins = [
   new MiniCssExtractPlugin({ // css 抽取打包压缩 只用在生产
     filename: '[name].[hash:6].css',
     chunkFilename: '[id].[hash:6].css'
+  }),
+  new PurgecssPlugin({
+    paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
   }),
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
