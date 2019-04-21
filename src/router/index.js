@@ -1,31 +1,8 @@
-import { HashRouter as Router, Route, Link } from "react-router-dom"
+import { HashRouter as Router, Route } from "react-router-dom"
 import { Component } from "react";
 import Index from '@/components/Index'
-import About from '@/components/About'
-import Users from '@/components/Users'
-import Home from '@/components/Home'
-import Car from '@/components/Car'
+import routesList from './router';
 
-const routesList = [
-  {
-    path: "/car",
-    component: Car
-  },
-  {
-    path: "/home",
-    component: Home,
-    routes: [
-      {
-        path: "/home/about",
-        component: About
-      },
-      {
-        path: "/home/user",
-        component: Users
-      }
-    ]
-  }
-];
 
 function RouteRoutes(route) {
   if (!route || !route.length) {
