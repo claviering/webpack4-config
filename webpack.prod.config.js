@@ -10,6 +10,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
+const autoAddDllRes = () => {
+  const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+  return new AddAssetHtmlPlugin([{ // 往html中注入dll js
+      publicPath: './dll/', // 注入到html文件中 src 的路径
+      outputPath: './dll/', // dll.js 文件输出的目录
+      filepath: './src/dll/*.js', // dll.js 来源目录
+      includeSourcemap: false,
+      typeOfAsset: 'js' // options js、css; default js
+  }]);
+};
+
 // config 默认编译 react 项目
 const contentBase = __dirname + `/src`
 const entryIndex = __dirname + `/src/index.js`
@@ -84,13 +95,18 @@ const webpackModule = {
 
 const plugins = [
   new VueLoaderPlugin(),
+  new webpack.DllReferencePlugin({ // 注入 dll 文件到 html 模板中
+    context: __dirname,
+    manifest: require('./src/dll/vue-manifest.json'),
+    extensions: [".js", ".jsx"]
+  }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
   new ProgressBarPlugin(), // 打包进度
   new MiniCssExtractPlugin({ // css 抽取打包压缩 只用在生产
     filename: '[name].[hash:6].css',
-    // chunkFilename: '[id].[hash:6].css'
+    chunkFilename: '[id].[hash:6].css'
   }),
   new PurgecssPlugin({
     paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
@@ -99,7 +115,8 @@ const plugins = [
   new webpack.ProvidePlugin({
     axios: 'axios'
   }),
-  new CleanWebpackPlugin()
+  new CleanWebpackPlugin(),
+  autoAddDllRes() // 注入 dll 文件到 html 模板中
 ]
 
 

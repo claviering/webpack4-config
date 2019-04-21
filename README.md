@@ -8,6 +8,10 @@ Webpack 4 + Vuejs 2.x 配置 demo
 - 输出文件夹 `/dist`
 - 模板文件 `/src/index.html'`
 
+## DLL 打包
+
+如果 src 目录没有 dll，需要先执行 `npm run dll`，一般只用运行一次，除非依赖的库版本有变化
+
 ## 开发
 
 `npm run dev`
