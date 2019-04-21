@@ -1,5 +1,5 @@
 const merge = require('webpack-merge')
-const webpackProdConfig = require('./webpack.prod.config')
+const webpackProdConfig = require('./webpack.config.prod')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 

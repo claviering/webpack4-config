@@ -2,6 +2,7 @@
   <div class="body">
     <h1>Body</h1>
     <img src="./1.jpeg" alt="">
+    <el-button type="danger">危险按钮</el-button>
     <el-tree :data="data" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
   </div>
 </template>

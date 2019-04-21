@@ -97,3 +97,4 @@ new webpack.ProvidePlugin({
 CSS Tree Shaking 只能在外部引入的 *.less *.css 有效
 
 - [ ] CSS Tree Shaking in *.vue
+- [ ] TS 中按需加载 Element UI
