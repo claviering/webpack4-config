@@ -1,7 +1,7 @@
-import About from '@/components/About'
-import Users from '@/components/Users'
-import Home from '@/components/Home'
-import Car from '@/components/Car'
+const About = React.lazy(() => import('@/components/About'))
+const Users = React.lazy(() => import('@/components/Users'))
+const Home = React.lazy(() => import('@/components/Home'))
+const Car = React.lazy(() => import('@/components/Car'))
 
 const routesList = [
   {

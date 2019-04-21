@@ -1,5 +1,5 @@
 import { HashRouter as Router, Route } from "react-router-dom"
-import { Component } from "react";
+import { Component, Suspense } from "react";
 import Index from '@/components/Index'
 import routesList from './router';
 
@@ -30,8 +30,10 @@ class AppRouter extends Component {
   render() {
     return (
       <Router>
-        <Index/>
-        {RouteRoutes(routesList)}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Index/>
+          {RouteRoutes(routesList)}
+        </Suspense>
       </Router>
     );
   }

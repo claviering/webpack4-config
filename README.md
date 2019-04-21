@@ -39,50 +39,39 @@ Webpack 4 + Vuejs 2.x 配置 demo
   ]
 ```
 
-## 配置
-
-项目根目录 babel.config.js
-```js
-module.exports = {
-  presets: ['@babel/preset-env', '@babel/preset-react'],
-  plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-transform-runtime']
-}
-```
-项目根目录 postcss.config.js
-```js
-module.exports = {
-  plugins: [
-    require('autoprefixer')
-  ]
-}
-```
-
-### vuejs  repo
-`npm run devVeu`
-
 dll 插件
+
 ```js
 new webpack.DllReferencePlugin({
   context: __dirname,
-  manifest: require('./src/assets/dll/vue-manifest.json'),
+  manifest: require('./src/assets/dll/react-manifest.json'),
 }),
 ```
-index.html 引入 vue*.dll.js
 
-`vue-style-loader` 不需要, 默认在 `vue-loader` 中使用
+index.html 引入 *.dll.js
 
-
-#### vux 移动组件库
-
-webpack 4 不支持 vux 2.x 版本
+```js
+const autoAddDllRes = () => {
+  const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+  return new AddAssetHtmlPlugin([{ // 往html中注入dll js
+      publicPath: './dll/', // 注入到html文件中 src 的路径
+      outputPath: './dll/', // dll.js 文件输出的目录
+      filepath: './src/dll/*.js', // dll.js 来源目录
+      includeSourcemap: false,
+      typeOfAsset: 'js' // options js、css; default js
+  }]);
+};
+// 添加插件
+autoAddDllRes()
+```
 
 
 ## 全局注册
 ```js
 // 全局注册, 不需要 import
 new webpack.ProvidePlugin({
-  _ : 'lodash',
-  axios: 'axios'
+  axios: 'axios',
+  React: 'react'
 })
 ```
 
@@ -91,9 +80,3 @@ new webpack.ProvidePlugin({
 ![打包流程图](./webpack.png)
 
 [图片来源](https://juejin.im/post/5c6b78cdf265da2da15db125)
-
-## TODO
-
-CSS Tree Shaking 只能在外部引入的 *.less *.css 有效
-
-- [ ] CSS Tree Shaking in *.vue
