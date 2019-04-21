@@ -2,7 +2,7 @@
 
 node v10
 
-Webpack 4 + Vuejs 2.x 配置 demo
+Webpack 4 + Vuejs 2.x + TypeScript 配置 demo
 
 - 入口文件 `/src/index.js'`
 - 输出文件夹 `/dist`

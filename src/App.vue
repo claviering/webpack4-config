@@ -1,7 +1,11 @@
 <template>
   <div class="app">
     <h1>app app</h1>
-    <h1>app</h1>
+    <input v-model="msg">
+    <p>prop: {{propMessage}}</p>
+    <p>msg: {{msg}}</p>
+    <p>computed msg: {{computedMsg}}</p>
+    <button @click="greet">Greet</button>
     <router-link to="/">
       <h1>main</h1>
     </router-link>
@@ -11,12 +15,39 @@
     <router-view></router-view>
   </div>
 </template>
-<script>
-export default {
+
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component({
+  props: {
+    propMessage: String
+  }
+})
+export default class App extends Vue {
+  // initial data
+  msg: number = 123
+
+  // use prop values for initial data
+
+  // lifecycle hook
+  mounted () {
+    this.greet()
+  }
+
+  // computed
+  get computedMsg () {
+    return 'computed ' + this.msg
+  }
+
+  // method
+  greet () {
+    console.log('greeting: ' + this.msg);
+  }
 }
 </script>
+
 <style lang="less" scoped>
-h1{
-  box-shadow: 0 2px 3px rgba(0,0,0,1);
-}
+
 </style>

@@ -1,0 +1,22 @@
+{
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compilerOptions": {
+    "target": "esNext",
+    "strict": true,
+    "experimentalDecorators": true,
+    "module": "esNext",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@/*": ["src/*"],
+    }
+  }
+}

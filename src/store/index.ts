@@ -10,7 +10,7 @@ const store = () => new Vuex.Store({
     }
   }
 })
-export default (Vue) => {
+export default (Vue: any) => {
   Vue.use(Vuex)
   return store()
 }

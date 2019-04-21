@@ -111,36 +111,4 @@ export default {
 };
 </script>
 <style lang="less">
-.body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 200px;
-    height: 200px;
-  }
-  h1 {
-    background-color: yellow;
-    color: #fff;
-    border-radius: 10px;
-    text-align: center;
-  }
-}
-.css-shaking {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 200px;
-    height: 200px;
-  }
-  h1 {
-    background-color: yellow;
-    color: #fff;
-    border-radius: 10px;
-    text-align: center;
-  }
-}
 </style>

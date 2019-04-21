@@ -1,7 +1,7 @@
 import "@babel/polyfill" // 必需放最上面
 import './index.less'
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
 import stores from './store'
 import routes from './router'
 import element from './element'
