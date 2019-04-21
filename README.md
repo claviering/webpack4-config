@@ -2,7 +2,7 @@
 
 node v10
 
-Webpack 4 + Vuejs 2.x 配置 demo
+Webpack 4 + React 16.x 配置 demo, 尝试使用 v16 的新特性
 
 - 入口文件 `/src/index.js'`
 - 输出文件夹 `/dist`
@@ -80,3 +80,7 @@ new webpack.ProvidePlugin({
 ![打包流程图](./webpack.png)
 
 [图片来源](https://juejin.im/post/5c6b78cdf265da2da15db125)
+
+## TODO
+
+- [ ] Lazy 闪屏问题

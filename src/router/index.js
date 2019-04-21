@@ -11,12 +11,12 @@ function RouteRoutes(route) {
   let Router = route.map(item => {
     if (item.routes && item.routes.length) {
       let SubRouter = RouteRoutes(item.routes)
-      return <Route exact path={item.path} key={item.path}>
-      <Route exact path={item.path} key={item.path} component={item.component}/>
+      return <Route path={item.path} key={item.path}>
+      <Route path={item.path} key={item.path} component={item.component}/>
       {SubRouter}
       </Route>
     } else {
-      return <Route exact path={item.path} key={item.path} component={item.component}/>
+      return <Route path={item.path} key={item.path} component={item.component}/>
     }
     
   })
@@ -30,7 +30,7 @@ class AppRouter extends Component {
   render() {
     return (
       <Router>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading...</div>} maxDuration={500}>
           <Index/>
           {RouteRoutes(routesList)}
         </Suspense>

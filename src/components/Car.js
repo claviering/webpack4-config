@@ -1,6 +1,6 @@
-import { Component } from "react";
+import AddTodo from './AddTodo'
 
-class Car extends Component {
+class Car extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -9,7 +9,9 @@ class Car extends Component {
   }
   render() {
     return (
-      <div className="car"><h1>Car</h1> </div>
+      <div className="car"><h1>Car</h1>
+        <AddTodo/>
+      </div>
     );
   }
 }
