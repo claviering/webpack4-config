@@ -1,5 +1,4 @@
 const webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
@@ -15,7 +14,7 @@ const output = {
 }
 
 const resolve = {
-  extensions: ['.vue', '.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
+  extensions: ['.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
   modules: ['node_modules'], // 指定包的目录
   alias: {
     '@': contentBase // 文件目录缩写
@@ -63,16 +62,11 @@ const webpackModule = {
           minimize: true
         }
       }]
-    },
-    {
-      test: /\.vue$/,
-      use: ['vue-loader']
     }
   ]
 }
 
 const plugins = [
-  new VueLoaderPlugin(),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
@@ -80,7 +74,8 @@ const plugins = [
   new webpack.HotModuleReplacementPlugin(), // 热加载
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
-    axios: 'axios'
+    axios: 'axios',
+    React: 'react', // react 没个组件都要引入
   })
 ]
 

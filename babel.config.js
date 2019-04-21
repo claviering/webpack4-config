@@ -1,12 +1,9 @@
 const presets = [
-  '@babel/preset-env'
+  '@babel/preset-env',
+  '@babel/preset-react'
 ];
-const plugins = ['@babel/plugin-syntax-dynamic-import', [
-  'component', {
-    libraryName: 'element-ui',
-    styleLibraryName: 'theme-chalk'
-  }
-]];
+
+const plugins = ['@babel/plugin-proposal-class-properties'];
 
 module.exports = {
   presets,
