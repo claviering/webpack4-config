@@ -1,9 +1,11 @@
 import * as React from "react"
 import AddTodo from './AddTodo'
 
-class Car extends React.Component<{}, {}> {
-  constructor({}) {
-    super({});
+export interface Props { }
+
+class Car extends React.Component<Props, {}> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
       title: ""
     };

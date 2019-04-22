@@ -3,6 +3,7 @@ import { HashRouter as Router, Route } from "react-router-dom"
 import Index from '@/components/Index'
 import routesList from './router';
 
+export interface Props { }
 
 function RouteRoutes(route: any) {
   if (!route || !route.length) {
@@ -23,9 +24,9 @@ function RouteRoutes(route: any) {
   return Router
 }
 
-class AppRouter extends React.Component<{}, {}> {
-  constructor({}) {
-    super({});
+class AppRouter extends React.Component<Props, {}> {
+  constructor(props: Props) {
+    super(props);
   }
   render() {
     return (

@@ -1,8 +1,10 @@
 import * as React from "react"
 
-class Users extends React.Component<{}, {}> {
-  constructor({}) {
-    super({});
+export interface Props { }
+
+class Users extends React.Component<Props, {}> {
+  constructor(props: Props) {
+    super(props);
   }
   render() {
     return (

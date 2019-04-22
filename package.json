@@ -38,7 +38,7 @@
     "progress-bar-webpack-plugin": "^1.12.1",
     "prop-types": "^15.7.2",
     "purgecss-webpack-plugin": "^1.4.0",
-    "react-dom": "^16.8.6",
+    "react-redux": "^7.0.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
     "typescript": "^3.4.4",
@@ -60,6 +60,9 @@
     "antd": "^3.16.4",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "redux": "^4.0.1"
   }
 }

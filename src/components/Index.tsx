@@ -14,7 +14,7 @@ class Index extends Component<Props, {}> {
   render() {
     return (
       <div className="index">
-      <h1 onClick={() => this.go()}>Index Page</h1>
+      <h1 onClick={() => this.go()}>Go Car Page</h1>
         <nav>
           <ul>
             <li>

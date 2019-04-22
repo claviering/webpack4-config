@@ -2,7 +2,9 @@ import * as React from "react"
 import { Link } from "react-router-dom"
 import List from './List'
 import CustomTextInput from './CustomTextInput'
-import { Button, Icon } from 'antd'
+// import { Button, Icon } from 'antd'
+
+export interface Props { }
 
 interface State {
   title: string;
@@ -11,9 +13,9 @@ interface Home {
   myRef: any;
 }
 
-class Home extends React.Component<{}, State> {
-  constructor({}) {
-    super({});
+class Home extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.myRef = React.createRef();
     this.state = {
       title: ''
@@ -38,11 +40,11 @@ class Home extends React.Component<{}, State> {
       <div className="home">
       <h1>Home</h1>
       <h2>button</h2>
-      <Button type="primary">Primary</Button>
+      {/* <Button type="primary">Primary</Button>
       <Button>Default</Button>
       <Button type="dashed">Dashed</Button>
       <Button type="danger">Danger</Button>
-      <Icon type="step-backward" />
+      <Icon type="step-backward" /> */}
       <List/>
       <CustomTextInput ref={this.myRef}/>
       <nav>
