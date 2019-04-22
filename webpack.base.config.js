@@ -4,7 +4,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 // config 默认编译 react 项目
 const contentBase = __dirname + `/src`
-const entryIndex = __dirname + `/src/index.js`
+const entryIndex = __dirname + `/src/index.tsx`
 const htmlTemplete = __dirname + `/src/index.html`
 
 const output = {
@@ -14,7 +14,7 @@ const output = {
 }
 
 const resolve = {
-  extensions: ['.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
+  extensions: ['.less', '.css', '.js', '.jsx', '.ts', '.tsx'], // 忽略文件后缀
   modules: ['node_modules'], // 指定包的目录
   alias: {
     '@': contentBase // 文件目录缩写
@@ -25,6 +25,10 @@ const webpackModule = {
   rules: [{
       test: /\.js[x]?$/,
       use: ['babel-loader?cacheDirectory=true']
+    },
+    {
+      test: /\.tsx?$/,
+      use: ['awesome-typescript-loader']
     },
     {
       test: /\.css$/,
