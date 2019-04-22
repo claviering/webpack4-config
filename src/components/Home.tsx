@@ -1,17 +1,25 @@
+import * as React from "react"
 import { Link } from "react-router-dom"
 import List from './List'
 import CustomTextInput from './CustomTextInput'
 import { Button, Icon } from 'antd'
 
-class Home extends React.Component {
-  constructor() {
-    super();
+interface State {
+  title: string;
+}
+interface Home {
+  myRef: any;
+}
+
+class Home extends React.Component<{}, State> {
+  constructor({}) {
+    super({});
     this.myRef = React.createRef();
     this.state = {
-      title: ""
+      title: ''
     };
   }
-  componentDidCatch(error, info) {
+  componentDidCatch(error: any, info: any) {
     console.log('error', error);
     console.log('info', info);
   }
@@ -19,7 +27,7 @@ class Home extends React.Component {
     // 调用子组件方法
     this.myRef.current.call()
   }
-  static getDerivedStateFromProps(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps: any, prevState: any) {
     console.log('getDerivedStateFromProps nextProps', nextProps);
     console.log('getDerivedStateFromProps prevState', prevState);
     return nextProps

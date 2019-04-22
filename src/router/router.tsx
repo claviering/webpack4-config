@@ -1,3 +1,4 @@
+import * as React from "react"
 const About = React.lazy(() => import('@/components/About'))
 const Users = React.lazy(() => import('@/components/Users'))
 const Home = React.lazy(() => import('@/components/Home'))

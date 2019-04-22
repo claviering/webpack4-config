@@ -1,8 +1,9 @@
+import * as React from "react"
 import AddTodo from './AddTodo'
 
-class Car extends React.Component {
-  constructor() {
-    super();
+class Car extends React.Component<{}, {}> {
+  constructor({}) {
+    super({});
     this.state = {
       title: ""
     };

@@ -1,3 +1,5 @@
+import * as React from "react"
+
 class CustomTextInput extends React.Component {
   call = () => {
     console.log('CustomTextInput Call');

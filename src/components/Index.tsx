@@ -1,12 +1,12 @@
-import { Link, withRouter } from "react-router-dom"
+import * as React from "react"
+import { RouteComponentProps, Link, withRouter } from "react-router-dom"
 import { Component } from "react";
 
-class Index extends Component {
-  constructor() {
-    super();
-    this.state = {
-      title: ""
-    };
+export interface Props extends RouteComponentProps<any> { history: any; }
+
+class Index extends Component<Props, {}> {
+  constructor(props: Props) {
+    super(props);
   }
   go = () => {
     this.props.history.push('/car')

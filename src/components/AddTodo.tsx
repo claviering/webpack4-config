@@ -1,8 +1,11 @@
+import * as React from "react"
 import { connect } from 'react-redux'
 import { addTodo } from '@/redux/actions'
 import { bindActionCreators } from 'redux'
 
-class AddTodo extends React.Component {
+export interface Props { addTodo?: Function; todoList?: Array<any>; }
+
+class AddTodo extends React.Component<Props, {}> {
   componentDidMount() {
     console.log('thism props', this.props);
   }
@@ -25,14 +28,14 @@ class AddTodo extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: any) => {
   console.log('state', state);
   return {
     todoList: state.todos
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     addTodo: bindActionCreators(addTodo, dispatch),
   };

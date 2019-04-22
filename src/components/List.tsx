@@ -1,4 +1,6 @@
-function List() {
+import * as React from "react"
+
+function List(): any {
   return [
     <li key="1">1</li>,
     <li key="2">2</li>,

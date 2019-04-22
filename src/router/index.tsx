@@ -1,14 +1,14 @@
+import * as React from "react"
 import { HashRouter as Router, Route } from "react-router-dom"
-import { Component, Suspense } from "react";
 import Index from '@/components/Index'
 import routesList from './router';
 
 
-function RouteRoutes(route) {
+function RouteRoutes(route: any) {
   if (!route || !route.length) {
     return
   }
-  let Router = route.map(item => {
+  let Router = route.map((item: any) => {
     if (item.routes && item.routes.length) {
       let SubRouter = RouteRoutes(item.routes)
       return <Route path={item.path} key={item.path}>
@@ -23,17 +23,17 @@ function RouteRoutes(route) {
   return Router
 }
 
-class AppRouter extends Component {
-  constructor() {
-    super();
+class AppRouter extends React.Component<{}, {}> {
+  constructor({}) {
+    super({});
   }
   render() {
     return (
       <Router>
-        <Suspense fallback={<div>Loading...</div>} maxDuration={500}>
+        <React.Suspense fallback={<div>Loading...</div>}>
           <Index/>
           {RouteRoutes(routesList)}
-        </Suspense>
+        </React.Suspense>
       </Router>
     );
   }
