@@ -93,4 +93,5 @@ new webpack.ProvidePlugin({
 ## TODO
 
 - [ ] Lazy 闪屏问题
-- [ ] 优化 antd webpack后被迫引进全部icons
+- [ ] 优化 antd webpack后被迫引进全部 icons
+- [ ] 生产环境 webpack 配置 alias 引入 antd Icons 不生效
