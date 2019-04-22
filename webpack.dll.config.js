@@ -1,6 +1,4 @@
-const path = require('path')
 const webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
@@ -11,7 +9,7 @@ const dllPath = __dirname + '/src/dll'
 
 // 需要打包成 dll 的包, 按需引入的不需要
 const entry = {
-  vue: ['react', 'react-redux', 'react-router-dom', 'redux'],
+  react: ['react', 'react-redux', 'react-router-dom', 'redux'],
 }
 
 // dll 输出
@@ -22,7 +20,7 @@ const output = {
 }
 
 const resolve = {
-  extensions: ['.vue', '.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
+  extensions: ['.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
   modules: ['node_modules'], // 指定包的目录
   alias: {
     '@': contentBase // 文件目录缩写
@@ -70,16 +68,11 @@ const webpackModule = {
           minimize: true
         }
       }]
-    },
-    {
-      test: /\.vue$/,
-      use: ['vue-loader']
     }
   ]
 }
 
 const plugins = [
-  new VueLoaderPlugin(),
   new ProgressBarPlugin(), // 打包进度
   new CleanWebpackPlugin(), // remove outpath.path directory
   new webpack.DllPlugin({ // dll 打包

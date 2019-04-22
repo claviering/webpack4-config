@@ -36,7 +36,7 @@ const resolve = {
   modules: ['node_modules'], // 指定包的目录
   alias: {
     '@': contentBase, // 文件目录缩写
-    // '@ant-design/icons/lib/dist$': path.resolve(__dirname, 'src/utils/antdIcon.js') // 解决 Icon 文件过大问题
+    '@ant-design/icons/lib/dist$': path.resolve(__dirname, 'src/utils/antdIcon.js') // 解决 Icon 文件过大问题
   }
 }
 
@@ -90,11 +90,11 @@ const webpackModule = {
 }
 
 const plugins = [
-  // new webpack.DllReferencePlugin({ // 注入 dll 文件到 html 模板中
-  //   context: __dirname,
-  //   manifest: require('./src/dll/react-manifest.json'),
-  //   extensions: [".js", ".jsx"]
-  // }),
+  new webpack.DllReferencePlugin({ // 注入 dll 文件到 html 模板中
+    context: __dirname,
+    manifest: require('./src/dll/react-manifest.json'),
+    extensions: [".js", ".jsx"]
+  }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
@@ -103,7 +103,7 @@ const plugins = [
     filename: '[name].[hash:6].css',
     chunkFilename: '[id].[hash:6].css'
   }),
-  // new PurgecssPlugin({
+  // new PurgecssPlugin({ // css tree shaking 在 antd 中不行
   //   paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
   // }),
   // 全局注册, 不需要 import
@@ -112,7 +112,7 @@ const plugins = [
     React: 'react' // react 懒得每个组件都要引入
   }),
   new CleanWebpackPlugin(),
-  // autoAddDllRes() // 注入 dll 文件到 html 模板中
+  autoAddDllRes() // 注入 dll 文件到 html 模板中
 ]
 
 
