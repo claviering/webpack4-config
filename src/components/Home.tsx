@@ -2,7 +2,8 @@ import * as React from "react"
 import { Link } from "react-router-dom"
 import List from './List'
 import CustomTextInput from './CustomTextInput'
-// import { Button, Icon } from 'antd'
+import * as hoistNonReactStatics from 'hoist-non-react-statics'
+import { Button, Icon } from 'antd'
 
 export interface Props { }
 
@@ -40,11 +41,11 @@ class Home extends React.Component<Props, State> {
       <div className="home">
       <h1>Home</h1>
       <h2>button</h2>
-      {/* <Button type="primary">Primary</Button>
+      <Button type="primary">Primary</Button>
       <Button>Default</Button>
       <Button type="dashed">Dashed</Button>
       <Button type="danger">Danger</Button>
-      <Icon type="step-backward" /> */}
+      <Icon type="step-backward" />
       <List/>
       <CustomTextInput ref={this.myRef}/>
       <nav>

@@ -90,6 +90,17 @@ new webpack.ProvidePlugin({
 1. 安装Antd的图标库。Antd已经将@ant-design/icons 作为依赖包安装过，我们只需将他添加到package.json中，这样规范一点。 npm install --save @ant-design/icons
 2. 创建文件utils/antdIcon.js，导出你要使用的图标
 
+## hoist-non-react-statics 报错
+
+提示 `node_modules/@types/hoist-non-react-statics/index"' has no default export`
+
+打开 `./node_modules/antd/lib/form/interface.d.ts:2:8 `
+
+
+将 `import hoistNonReactStatics from 'hoist-non-react-statics';`
+
+修改为 `import * as hoistNonReactStatics from 'hoist-non-react-statics';`
+
 ## TODO
 
 - [ ] Lazy 闪屏问题

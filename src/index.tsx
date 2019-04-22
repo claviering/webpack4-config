@@ -6,6 +6,7 @@ import * as ReactDOM from "react-dom"
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from '@/redux/reducers'
+import 'antd/dist/antd.css'
 import { Hello } from '@/components/Hello'
 
 const store = createStore(rootReducer)
