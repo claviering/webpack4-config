@@ -17,6 +17,9 @@ class AddTodo extends React.Component {
         <button type="submit" onClick={() => this.click()}>
           Add Todo
         </button>
+        {
+          this.props.todoList.map(item => <h1 key={item.id}>{item.text}</h1>)
+        }
       </div>
     )
   }

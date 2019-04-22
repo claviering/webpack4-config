@@ -11,7 +11,7 @@ const dllPath = __dirname + '/src/dll'
 
 // 需要打包成 dll 的包, 按需引入的不需要
 const entry = {
-  vue: ['vue', 'vue-router', 'vuex'],
+  vue: ['react', 'react-redux', 'react-router-dom', 'redux'],
 }
 
 // dll 输出

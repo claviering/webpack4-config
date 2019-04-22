@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom"
 import List from './List'
 import CustomTextInput from './CustomTextInput'
-
-
+import { Button, Icon } from 'antd'
 
 class Home extends React.Component {
   constructor() {
@@ -31,6 +30,11 @@ class Home extends React.Component {
       <div className="home">
       <h1>Home</h1>
       <h2>button</h2>
+      <Button type="primary">Primary</Button>
+      <Button>Default</Button>
+      <Button type="dashed">Dashed</Button>
+      <Button type="danger">Danger</Button>
+      <Icon type="step-backward" />
       <List/>
       <CustomTextInput ref={this.myRef}/>
       <nav>

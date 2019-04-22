@@ -9,7 +9,7 @@ class Car extends React.Component {
   }
   render() {
     return (
-      <div className="car"><h1>Car</h1>
+      <div className="car"><h1>Redux</h1>
         <AddTodo/>
       </div>
     );

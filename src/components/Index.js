@@ -21,7 +21,7 @@ class Index extends Component {
               <Link to="/">Index</Link>
             </li>
             <li>
-              <Link to="/car">Car</Link>
+              <Link to="/car">Redux Try</Link>
             </li>
             <li>
               <Link to="/home">Home</Link>

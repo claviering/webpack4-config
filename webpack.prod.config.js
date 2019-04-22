@@ -1,7 +1,6 @@
 const glob = require('glob')
 const path = require('path')
 const webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const PurgecssPlugin = require('purgecss-webpack-plugin')
@@ -33,10 +32,11 @@ const output = {
 }
 
 const resolve = {
-  extensions: ['.vue', '.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
+  extensions: ['.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
   modules: ['node_modules'], // 指定包的目录
   alias: {
-    '@': contentBase // 文件目录缩写
+    '@': contentBase, // 文件目录缩写
+    // '@ant-design/icons/lib/dist$': path.resolve(__dirname, 'src/utils/antdIcon.js') // 解决 Icon 文件过大问题
   }
 }
 
@@ -85,21 +85,16 @@ const webpackModule = {
           minimize: true
         }
       }]
-    },
-    {
-      test: /\.vue$/,
-      use: ['vue-loader']
     }
   ]
 }
 
 const plugins = [
-  new VueLoaderPlugin(),
-  new webpack.DllReferencePlugin({ // 注入 dll 文件到 html 模板中
-    context: __dirname,
-    manifest: require('./src/dll/vue-manifest.json'),
-    extensions: [".js", ".jsx"]
-  }),
+  // new webpack.DllReferencePlugin({ // 注入 dll 文件到 html 模板中
+  //   context: __dirname,
+  //   manifest: require('./src/dll/react-manifest.json'),
+  //   extensions: [".js", ".jsx"]
+  // }),
   new HtmlWebpackPlugin({
     template: htmlTemplete
   }),
@@ -108,15 +103,16 @@ const plugins = [
     filename: '[name].[hash:6].css',
     chunkFilename: '[id].[hash:6].css'
   }),
-  new PurgecssPlugin({
-    paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
-  }),
+  // new PurgecssPlugin({
+  //   paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
+  // }),
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
-    axios: 'axios'
+    axios: 'axios',
+    React: 'react' // react 懒得每个组件都要引入
   }),
   new CleanWebpackPlugin(),
-  autoAddDllRes() // 注入 dll 文件到 html 模板中
+  // autoAddDllRes() // 注入 dll 文件到 html 模板中
 ]
 
 
@@ -156,7 +152,7 @@ const optimization = {
     },
     cache: true, // 开启缓存
     parallel: true // 多线程压缩 默认值 os.cpus().length - 1
-  })] // 压缩 CSS
+  })] // 压缩 CSS JS
 }
 
 module.exports = {

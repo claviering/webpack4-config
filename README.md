@@ -81,6 +81,16 @@ new webpack.ProvidePlugin({
 
 [图片来源](https://juejin.im/post/5c6b78cdf265da2da15db125)
 
+## 解决打包全部引入 Icon
+
+参考
+
+[知乎 登来的回答](https://www.zhihu.com/question/308898834/answer/573515745)
+
+1. 安装Antd的图标库。Antd已经将@ant-design/icons 作为依赖包安装过，我们只需将他添加到package.json中，这样规范一点。 npm install --save @ant-design/icons
+2. 创建文件utils/antdIcon.js，导出你要使用的图标
+
 ## TODO
 
 - [ ] Lazy 闪屏问题
+- [ ] 优化 antd webpack后被迫引进全部icons
