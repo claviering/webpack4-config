@@ -1,133 +1,29 @@
-# webpack 4
+# webpack4 配置 demo
 
-配置 demo
+配置使用 webpack 4 模板, vue 模板 react 模板 typescript 模板
 
-入口文件  
-`__dirname + './src/index.js'`
+详细参考对应分支的 README
 
-输出文件夹  
-`__dirname + '/dist'`
+# webpack 4 + vue.js 2.x
 
-模板文件  
- `__dirname + './index.html',`
+使用 vue 分支
 
+`git checkout vue`
 
-node v10
+# webpack 4 + vue.js 2.x + typescript
 
-## 初始化
+使用 vue-ts 分支
 
-`chmod +x init.sh && ./init.sh`
+`git checkout vue-ts`
 
-## 第一次启动
+# webpack 4 + react.js 16.x
 
-`npm run dll`
+使用 react 分支
 
-## 配置
+`git checkout react`
 
-删除 .babelrc 使用 babel.config.js
+# webpack 4 + react.js 16.x + typescript
 
-项目根目录 babel.config.js
-```js
-module.exports = {
-  presets: ['@babel/preset-env', '@babel/preset-react'],
-  plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-transform-runtime']
-}
-```
-项目根目录 postcss.config.js
-```js
-module.exports = {
-  plugins: [
-    require('autoprefixer')
-  ]
-}
-```
+使用 vue 分支
 
-## 开发
-
-### vuejs  repo
-`npm run devVeu`
-
-dll 插件
-```js
-new webpack.DllReferencePlugin({
-  context: __dirname,
-  manifest: require('./src/assets/dll/vue-manifest.json'),
-}),
-```
-index.html 引入 vue*.dll.js
-
-`vue-style-loader` 不需要, 默认在 `vue-loader` 中使用
-
-#### vue-loader v15
-
-需要搭配插件使用
-
-```js
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const webpackModule = {
-  rules: [
-    {
-      test: /\.vue$/,
-      use: ['cache-loader','vue-loader']
-    }
-  ]
-}
-const plugins = [
-  new VueLoaderPlugin()
-]
-```
-
-#### vux 移动组件库
-
-webpack 4 不支持 vux 
-
-### reactjs  repo
-`npm run devReact`
-
-dll 插件
-
-```js
-new webpack.DllReferencePlugin({
-  context: __dirname,
-  manifest: require('./src/assets/dll/react-manifest.json'),
-}),
-```
-
-index.html 引入 react*.dll.js
-
-## antd
-
-看官网使用
-
-babel 添加配置
-
-手动引入 css 或者 less
-
-## 部署
-vuejs  
-`npm run buildVue`
-
-reactjs  
-`npm run buildReact`
-
-## 分析
-
-`npm run analyze`
-
-
-## 全局注册
-```js
-// 全局注册, 不需要 import
-new webpack.ProvidePlugin({
-  _ : 'lodash',
-  axios: 'axios'
-})
-```
-
-## 压缩 lodash
-
-插件`babel-plugin-lodash`, `lodash-webpack-plugin`
-
-## 参考
-
-> [使用webpack4提升180%编译速度](https://juejin.im/entry/5c302140f265da611b587f99#%E5%BF%AB%E4%B8%8A%E8%BD%A6%EF%BC%8C%E5%8D%87%E7%BA%A7%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87)
+`git checkout react-ts`
