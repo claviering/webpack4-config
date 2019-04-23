@@ -2,7 +2,7 @@ const glob = require('glob')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -22,7 +22,7 @@ const autoAddDllRes = () => {
 
 // config 默认编译 react 项目
 const contentBase = __dirname + `/src`
-const entryIndex = __dirname + `/src/index.js`
+const entryIndex = __dirname + `/src/index.tsx`
 const htmlTemplete = __dirname + `/src/index.html`
 
 const output = {
@@ -32,7 +32,7 @@ const output = {
 }
 
 const resolve = {
-  extensions: ['.less', '.css', '.js', '.jsx', '.ts'], // 忽略文件后缀
+  extensions: ['.less', '.css', '.js', '.jsx', '.ts', '.tsx'], // 忽略文件后缀
   modules: ['node_modules'], // 指定包的目录
   alias: {
     '@': contentBase, // 文件目录缩写
@@ -48,6 +48,10 @@ const webpackModule = {
   rules: [{
       test: /\.js[x]?$/,
       use: ['babel-loader?cacheDirectory=true']
+    },
+    {
+      test: /\.tsx?$/,
+      use: ['awesome-typescript-loader']
     },
     {
       test: /\.css$/,
@@ -144,8 +148,8 @@ const optimization = {
       }
     }
   },
-  minimizer: [new OptimizeCSSAssetsPlugin({}), new UglifyJsPlugin({
-    uglifyOptions: {
+  minimizer: [new OptimizeCSSAssetsPlugin({}), new TerserPlugin({
+    terserOptions: {
       output: {
         comments: false // 删除注释
       }
