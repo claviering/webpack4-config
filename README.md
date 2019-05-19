@@ -109,6 +109,12 @@ new webpack.ProvidePlugin({
 - [x] 引入需要 import * as React from "react"
 
   tsconfig.json 配置 "moduleResolution": "node",
-- [ ] 按需加载 antd 无效
-- [ ] 优化 antd webpack后被迫引进全部 icons
-- [ ] 生产环境 webpack 配置 alias 引入 antd Icons 不生效
+- [x] 优化 webpack 后被迫引进全部 antd icons
+
+  添加 alias 配置
+
+      alias: {
+        '@': contentBase, // 文件目录缩写
+        '@ant-design/icons/lib/dist$': path.resolve(__dirname, 'src/utils/antdIcon.js') // 解决 Icon 文件过大问题
+      }
+      参考

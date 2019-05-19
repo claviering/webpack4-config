@@ -44,7 +44,10 @@ class Home extends React.Component<Props, State> {
       <Button>Default</Button>
       <Button type="dashed">Dashed</Button>
       <Button type="danger">Danger</Button>
+      <Icon type="arrow-up" />
       <Icon type="step-backward" />
+      <Icon type="fast-backward" />
+      <Icon type="check" />
       <List/>
       <CustomTextInput ref={this.myRef}/>
       <nav>

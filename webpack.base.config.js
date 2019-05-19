@@ -1,3 +1,4 @@
+const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
@@ -17,7 +18,8 @@ const resolve = {
   extensions: ['.less', '.css', '.js', '.jsx', '.ts', '.tsx'], // 忽略文件后缀
   modules: ['node_modules'], // 指定包的目录
   alias: {
-    '@': contentBase // 文件目录缩写
+    '@': contentBase, // 文件目录缩写
+    '@ant-design/icons/lib/dist$': path.resolve(__dirname, 'src/utils/antdIcon.js') // 解决 Icon 文件过大问题
   }
 }
 
