@@ -78,7 +78,7 @@ const plugins = [
   new webpack.HotModuleReplacementPlugin(), // 热加载
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
-    axios: 'axios',
+    axios: 'axios'
   })
 ]
 
