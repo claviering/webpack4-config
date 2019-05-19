@@ -79,7 +79,6 @@ const plugins = [
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
     axios: 'axios',
-    React: 'react', // react 懒得每个组件都要引入
   })
 ]
 

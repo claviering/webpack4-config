@@ -5,7 +5,15 @@ import routesList from './router';
 
 export interface Props { }
 
-function RouteRoutes(route: any) {
+interface RouterItem {
+  path: string,
+  component: any
+}
+interface RouterList extends Array<RouterItem> {
+  routes?: Array<object>
+}
+
+function RouteRoutes(route: RouterList) {
   if (!route || !route.length) {
     return
   }
