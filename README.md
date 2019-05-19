@@ -103,7 +103,12 @@ new webpack.ProvidePlugin({
 
 ## TODO
 
-- [ ] React.lazy 无效
+- [x] React.lazy 无效 
+  
+  tsconfig.json 配置 "module": "esnext"
+- [x] 引入需要 import * as React from "react"
+
+  tsconfig.json 配置 "moduleResolution": "node",
 - [ ] 按需加载 antd 无效
 - [ ] 优化 antd webpack后被迫引进全部 icons
 - [ ] 生产环境 webpack 配置 alias 引入 antd Icons 不生效

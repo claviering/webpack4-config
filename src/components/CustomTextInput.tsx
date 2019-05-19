@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 
 class CustomTextInput extends React.Component {
   call = () => {

@@ -1,5 +1,5 @@
-import * as React from "react"
-import * as img from './1.jpeg'
+import React from "react"
+import img from './1.jpeg'
 
 export interface Props { compiler?: string; framework?: string; }
 interface State {

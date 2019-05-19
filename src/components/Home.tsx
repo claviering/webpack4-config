@@ -1,8 +1,7 @@
-import * as React from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import List from './List'
 import CustomTextInput from './CustomTextInput'
-import * as hoistNonReactStatics from 'hoist-non-react-statics'
 import { Button, Icon } from 'antd'
 
 export interface Props { }

@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { RouteComponentProps, Link, withRouter } from "react-router-dom"
 import { Component } from "react";
 

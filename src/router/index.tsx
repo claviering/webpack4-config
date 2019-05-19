@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { HashRouter as Router, Route } from "react-router-dom"
 import Index from '@/components/Index'
 import routesList from './router';

@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import AddTodo from './AddTodo'
 
 export interface Props { }
