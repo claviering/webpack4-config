@@ -1,6 +1,7 @@
 import "@babel/polyfill" // 必需放最上面
 import '@/css/index'
 import App from './App'
+import './index'
 import React from "react"
 import ReactDOM from "react-dom"
 import { createStore } from 'redux'

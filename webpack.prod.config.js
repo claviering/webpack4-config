@@ -107,9 +107,9 @@ const plugins = [
     filename: '[name].[hash:6].css',
     chunkFilename: '[id].[hash:6].css'
   }),
-  // new PurgecssPlugin({ // css tree shaking 在 antd 中不行
-  //   paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
-  // }),
+  new PurgecssPlugin({ // css tree shaking 在 antd 中不行,  需要 antd css 使用 CDN
+    paths: glob.sync(`${PATHS.src}/**/*`, {nodir: true})
+  }),
   // 全局注册, 不需要 import
   new webpack.ProvidePlugin({
     axios: 'axios',
