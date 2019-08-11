@@ -6,7 +6,10 @@ function greeting() {
     scope: {
       name: '='
     },
-    template: '<h1>Hello, {{name}}</div>'
+    template: '<h1>Hello, {{name}}</div>',
+    controller: function ($scope) {
+      console.log('greeting $scope', $scope);
+    }
   }
 }
 
