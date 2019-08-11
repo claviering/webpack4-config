@@ -1,10 +1,9 @@
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import routing from './app.config';
-import home from './features/home';
+import home from './components/home';
+import about from './components/about';
+import notFound from './components/404';
 
-// import routes from './app.routes';
-// import pokemons from './pokemons';
-
-angular.module('app', [uirouter, home])
+angular.module('app', [uirouter, home, about, notFound])
   .config(routing)
