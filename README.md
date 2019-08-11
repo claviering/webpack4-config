@@ -2,6 +2,8 @@
 
 配置使用 webpack 4 模板, vue 模板 react 模板 typescript 模板
 
+配置使用 webpack 4 模板, angular 1.3.17
+
 详细参考对应分支的 README
 
 # webpack 4 + vue.js 2.x
@@ -27,3 +29,9 @@
 使用 vue 分支
 
 `git checkout react-ts`
+
+# webpack 4 + angular 1.3.17 + Bootstrap
+
+使用 angular-1.3.17 分支
+
+`git checkout angular-1.3.17`
