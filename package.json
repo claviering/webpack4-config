@@ -75,7 +75,7 @@
     "element-ui": "^2.4.11",
     "lodash": "^4.17.13",
     "loglevel": "^1.4.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "prop-types": "^15.7.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
